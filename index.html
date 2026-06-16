@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brothers United Club - Official Website</title>
+    <style>
+        /* --- CSS Variables & Reset --- */
+        :root {
+            --primary-color: #0a2342; /* Navy Blue */
+            --accent-color: #ffd700; /* Gold/Yellow */
+            --text-dark: #333;
+            --text-light: #f4f4f4;
+            --bg-light: #f9f9f9;
+            --card-bg: #ffffff;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        /* --- Header & Navigation --- */
+        header {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-light);
+            font-weight: 500;
+            padding: 5px 10px;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            background: linear-gradient(rgba(10, 35, 66, 0.8), rgba(10, 35, 66, 0.8)), 
+                        url('https://picsum.photos/seed/stadium/1920/1080') no-repeat center center/cover;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: #e6c200;
+            transform: translateY(-2px);
+        }
+
+        /* --- Section Styling --- */
+        section {
+            padding: 60px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--accent-color);
+            margin: 10px auto;
+        }
+
+        /* --- About Us --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            align-items: center;
+        }
+
+        .about-text h3 { margin-bottom: 15px; font-size: 1.8rem; }
+        .about-text ul { margin-top: 15px; }
+        .about-text li { margin-bottom: 8px; }
+        .about-img img { border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+
+        /* --- Team (Players) --- */
+        .team-section { background-color: #fff; }
+        
+        .team-category {
+            margin-bottom: 60px;
+        }
+
+        .team-category-title {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            border-left: 5px solid var(--accent-color);
+            padding-left: 15px;
+            margin-bottom: 30px;
+            background: #eee;
+            padding: 10px 15px;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .player-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .player-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            border: 1px solid #eee;
+        }
+
+        .player-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .player-img-wrapper {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            background-color: #ddd;
+            position: relative;
+        }
+
+        .player-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .player-jersey-num {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border-radius: 50%;
+        }
+
+        .player-info { padding: 15px; text-align: center; }
+        .player-name { font-size: 1.2rem; font-weight: bold; color: var(--primary-color); margin-bottom: 5px; }
+        .player-pos { color: #666; font-size: 0.9rem; text-transform: uppercase; margin-bottom: 10px; display: block; }
+        .player-bio { font-size: 0.85rem; color: #555; line-height: 1.4; }
+
+        /* --- Matches & Tables --- */
+        .match-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .match-table th, .match-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .match-table th { background-color: var(--primary-color); color: white; }
+        .match-table tr:hover { background-color: #f1f1f1; }
+
+        /* --- Gallery --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .gallery-item img:hover { transform: scale(1.03); }
+
+        /* --- Statistics --- */
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            text-align: center;
+        }
+        .stat-box { background: white; padding: 20px; border-radius: 8px; width: 200px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .stat-number { font-size: 2.5rem; color: var(--primary-color); font-weight: bold; }
+        .stat-label { color: #666; }
+
+        /* --- Contact --- */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        .contact-info div { margin-bottom: 20px; }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .contact-form button { width: 100%; cursor: pointer; border: none; }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        .footer-links { margin-bottom: 10px; }
+        .footer-links a { margin: 0 10px; font-size: 0.9rem; }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; gap: 15px; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .contact-wrapper { grid-template-columns: 1fr; }
+            .player-img-wrapper { height: 200px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">Brothers United Club</div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#matches">Matches</a></li>
+                    <li><a href="#tournaments">Tournaments</a></li>
+                    <li><a href="#news">News</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#stats">Stats</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Home / Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Brothers United Club</h1>
+            <p>Unity, Passion, and Victory on the Field</p>
+            <a href="#about" class="btn">Explore Club</a>
+        </div>
+    </section>
+
+    <!-- About Us -->
+    <section id="about">
+        <h2 class="section-title">About Us</h2>
+        <div class="about-grid">
+            <div class="about-img">
+                <img src="image/about.jpg" alt="Club House">
+            </div>
+            <div class="about-text">
+                <h3>Club History & Mission</h3>
+                <p>Established with a vision to promote sportsmanship and football talent in Narsingdi, Brothers United Club has been a cornerstone of local football. Our mission is to nurture young talent and bring glory to our community.</p>
+                <br>
+                <h3>Management & Facilities</h3>
+                <ul>
+                    <li><strong>President:</strong> Sakib Ahammed </li>
+                    <li><strong>Coach:</strong> Riad Hasan</li>
+                    <li><strong>Facilities:</strong> Professional Training Ground </li>
+                    <li><strong>Location:</strong> Nehabo, Panchdona, Narsingdi Sadar, Narsingdi</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section (26 Players: 13 A-Team, 13 B-Team) -->
+    <section id="team" class="team-section">
+        <h2 class="section-title">Our Squad</h2>
+        
+        <!-- A Team -->
+        <div class="team-category">
+            <h3 class="team-category-title">First Team (A Team)</h3>
+            <div class="player-grid">
+                <!-- A Team Player 1 -->
+                <div class="player-card">
+                    <div class="player-img-wrapper">
+                        <span class="player-jersey-num">01</span>
+                        <!-- Change src below to your player's photo -->
+                        <img src="image/Jaidul.jpeg" alt="Player 1">
+                    </div>
+                    <div class="player-info">
+                        <div class="player-name">Jaidul Islam</div>
+                        <span class="player-pos">Goalkeeper</span>
+                        <p class="player-bio">Experienced wall of defense. Known for his reflex saves.</p>
+                    </div>
+                </div>
+                <!-- A Team Player 2 -->
+                <div class="player-card">
+                    <div class="player-img-wrapper">
+                        <span class="player-jersey-num">04</span>
+                        <img src="image/LIMON.jpg" alt="Player 2">
+                    </div>
+                    <div class="player-info">
+                        <div class="player-name">Limon Khan</div>
+                        <span class="player-pos">Defender</span>
+                        <p class="player-bio">Strong tackler and great aerial ability.</p>
+                    </div>
+                </div>
+                <!-- A Team Player 3 -->
+                <div class="player-card">
+                    <div class="player-img-wrapper">
+                        <span class="player-jersey-num">11</span>
+                        <img src="image/faysal.jpeg" alt="Player 3">
+                    </div>
+                    <div class="player-info">
+                        <div class="player-name">Faysal Mia</div>
+                        <span class="player-pos">Midfielder</span>
+                        <p class="player-bio">Playmaker with excellent vision and passing range.</p>
+                    </div>
+                </div>
+                <!-- A Team Player 4 -->
+                <div class="player-card">
+                    <div class="player-img-wrapper">
+                        <span class="player-jersey-num">10</span>
+                        <img src="image/Sakib.jpeg" alt="Player 4">
+                    </div>
+                    <div class="player-info">
+                        <div class="player-name">Sakib Hasan</div>
+                        <span class="player-pos">Forward (Captain)</span>
+                        <p class="player-bio">Top scorer, fast and clinical in front of goal.</p>
+                    </div>
+                </div>
+                <!-- A Team Player 5 -->
+                <div class="player-card">
+                    <div class="player-img-wrapper">
+                        <span class="player-jersey-num">02</span>
+                        <img src="image/Ajijul.jpeg" alt="Player 5">
+                    </div>
+                    <div class="player-info">
+                        <div class="player-name">Azijul Islam</div>
+                        <span class="player-pos">Defender</span>
+                        <p class="player-bio">Solid right-back with great stamina.</p>
+                    </div>
+                </div>
+                <!-- A Team Player 6 -->
+                <div class="player-card">
+                    <div class="player-img-wrapper">
+                        <span class="player-jersey-num">05</span>
+                        <img src="image/babu.JPG" alt="Player 6">
+                    </div>
+                    <div class="player-info">
+                        <div class="player-name">Babu</div>
+                        <span class="player-pos">Defender</span>
+                        <p class="player-bio">Centre back, leader of the defensive line.</p>
+                    </div>
+                </div>
+                <!-- A Team Player 7 -->
+                <div class="player-card">
+                    <div class="player-img-wrapper">
+                        <span class="player-jersey-num">08</span>
+                        <img src="image/eamin.jpeg" alt="Player 7">
+                    </div>
+                    <div class="player-info">
+                        <div class="player-name">Eyamin Mia</div>
+                        <span class="player-pos">Midfielder</span>
+                        <p class="player-bio">Box-to-box midfielder, hardworking.</p>
+                    </div>
+                </div>
+                <!-- A Team Player 8 -->
+                <div class="player-card">
+                    <div class="player-img-wrapper">
+                        <span class="player-jersey-num">12</span>
+                        <img src="image/Sahed.jpeg" alt="Player 8">
+                    </div>
+                    <div class="player-info">
+                        <div class="player-name">Sahed Khan</div>
+                        <span class="player-pos">Winger</span>
+                        <p class="player-bio">Dribbling master, creates chances from wings.</p>
+                    </div>
+                </div>
+                <!-- A Team Player 9 -->
+                <div class="player-card">
+                    <div class="player-img-wrapper">
+                        <span class="player-jersey-num">07</span>
+                        <img src="image/Riyad.jpeg"Player 9">
+                    </div>
+                    <div class="player-info">
+                        <div class="player-name">Riyad Hasan</div>
+                        <span class="player-pos">Striker</span>
+                        <p class="player-bio">Target man, good at holding up the ball.</p>
+                    </div>
+                </div>
+                <!-- A Team Player 10 -->
+                <div class="player-card">
+                    <div class="player-img-wrapper">
+                        <span class="player-jersey-num">06</span>
+                        <img src="image/Bisal.jpeg" alt="Player 10">
+                    </div>
+                    <div class="player-info">
+                        <div class="player-name">Bisal</div>
+                        <span class="player-pos">Midfielder</span>
+                        <p class="player-bio">Defensive midfield, breaks up attacks.</p>
+                    </div>
+                </div>
+                <!-- A Team Player 11 -->
+                <div class="player-card">
+                    <div class="player-img-wrapper">
+                        <span class="player-jersey-num">03</span>
+                        <img src="image/Asraful.JPG" alt="Player 11">
+                    </div>
+                    <div class="player-info">
+                        <div class="player-name">Asraful Islam</div>
+                        <span class="player-pos">Defender</span>
+                        <p class="player-bio">Left-back, good at joining attacks.</p>
+                    </div>
+                </div>
+                <!-- A Team Player 12 -->
+                <div class="player-card">
+                    <div class="player-img-wrapper">
+                        <span class="player-jersey-num">12</span>
+                        <img src="image/adnan.jpeg" alt="Player 12">
+                    </div>
+                    <div class="player-info">
+                        <div class="player-name">Adnan Kabir</div>
+                        <span class="player-pos">Forward</span>
+                        <p class="player-bio">Super sub, always scores when needed.</p>
+                    </div>
+                </div>
+                <!-- A Team Player 13 -->
+                <div class="player-card">
+                    <div class="player-img-wrapper">
+                        <span class="player-jersey-num">99</span>
+                        <img src="image/avatar.png" alt="Player 13">
+                    </div>
+                    <div class="player-info">
+                        <div class="player-name">Upcoming</div>
+                        <span class="player-pos">Goalkeeper</span>
+                        <p class="player-bio">Backup keeper with great potential.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- B Team -->
+        <div class="team-category">
+            <h3 class="team-category-title">Reserve Team (B Team)</h3>
+            <div class="player-grid">
+                <!-- B Team Player 1 -->
+                <div class="player-card">
+                    <div class="player-img-wrapper">
+                        <span class="player-jersey-num">1</span>
+                        <img src="image/Mohon.jpeg" alt="Player 14">
+                    </div>
+                    <div class="player-info">
+                        <div class="player-name">Mohon Raja</div>
+                        <span class="player-pos">Goalkeeper</span>
+                        <p class="player-bio">Young prospect, agile and quick.</p>
+                    </div>
+                </div>
+                <!-- B Team Player 2 -->
+                <div class="player-card">
+                    <div class="player-img-wrapper">
+                        <span class="player-jersey-num">22</span>
+                        <img src="https://picsum.photos/seed/p15/300/300" alt="Player 15">
+                    </div>
+                    <div class="player-info">
+                        <div class="player-name">Tofazzal</div>
+                        <span class="player-pos">Defender</span>
+                        <p class="player-bio">Tough defender, never gives up.</p>
+                    </div>
+                </div>
+                <!-- B Team Player 3 -->
+                <div class="player-card">
+                    <div class="player-img-wrapper">
+                        <span class="player-jersey-num">24</span>
+                        <img src="https://picsum.photos/seed/p16/300/300" alt="Player 16">
+                    </div>
+                    <div class="player-info">
+                        <div class="player-name">Liton Das</div>
+                        <span class="player-pos">Midfielder</span>
+                        <p class="player-bio">Creative midfielder, likes to attack.</p>
+                    </div>
+                </div>
+                <!-- B Team Player 4 -->
+                <div class="player-card">
+                    <div class="player-img-wrapper">
+                        <span class="player-jersey-num">25</span>
+                        <img src="https://picsum.photos/seed/p17/300/300" alt="Player 17">
+                    </div>
+                    <div class="player-info">
+                        <div class="player-name">Sumon Ali</div>
+                        <span class="player-pos">Forward</span>
+                        <p class="player-bio">Fast learner and energetic striker.</p>
+                    </div>
+                </div>
+                <!-- B Team Player 5 -->
+                <div class="player-card">
+                    <div class="player-img-wrapper">
+                        <span class="player-jersey-num">21</span>
+                        <img src="https://picsum.photos/seed/p18/300/300" alt="Player 18">
+                    </div>
+                    <div class="player-info">
+                        <div class="player-name">Rakibul Islam</div>
+                        <span class="player-pos">Defender</span>
+                        <p class="player-bio">Reliable full-back.</p>
+                    </div>
+                </div>
+                <!-- B Team Player 6 -->
+                <div class="player-card">
+                    <div class="player-img-wrapper">
+                        <span class="player-jersey-num">23</span>
+                        <img src="https://picsum.photos/seed/p19/300/300" alt="Player 19">
+                    </div>
+                    <div class="player-info">
+                        <div class="player-name">Jasim Uddin</div>
+                        <span class="player-pos">Midfielder</span>
+                        <p class="player-bio">Hardworking team player.</p>
+                    </div>
+                </div>
+                <!-- B Team Player 7 -->
+                <div class="player-card">
+                    <div class="player-img-wrapper">
+                        <span class="player-jersey-num">26</span>
+                        <img src="https://picsum.photos/seed/p20/300/300" alt="Player 20">
+                    </div>
+                    <div class="player-info">
+                        <div class="player-name">Delwar Hossain</div>
+                        <span class="player-pos">Forward</span>
+                        <p class="player-bio">Good positioning and finishing.</p>
+                    </div>
+                </div>
+                <!-- B Team Player 8 -->
+                <div class="player-card">
+                    <div class="player-img-wrapper">
+                        <span class="player-jersey-num">27</span>
+                        <img src="https://picsum.photos/seed/p21/300/300" alt="Player 21">
+                    </div>
+                    <div class="player-info">
+                        <div class="player-name">Saiful Islam</div>
+                        <span class="player-pos">Midfielder</span>
+                        <p class="player-bio">Good at set-pieces.</p>
+                    </div>
+                </div>
+                <!-- B Team Player 9 -->
+                <div class="player-card">
+                    <div class="player-img-wrapper">
+                        <span class="player-jersey-num">28</span>
+                        <img src="https://picsum.photos/seed/p22/300/300" alt="Player 22">
+                    </div>
+                    <div class="player-info">
+                        <div class="player-name">Imran Khan</div>
+                        <span class="player-pos">Defender</span>
+                        <p class="player-bio">Versatile, can play anywhere in defense.</p>
+                    </div>
+                </div>
+                <!-- B Team Player 10 -->
+                <div class="player-card">
+                    <div class="player-img-wrapper">
+                        <span class="player-jersey-num">29</span>
+                        <img src="https://picsum.photos/seed/p23/300/300" alt="Player 23">
+                    </div>
+                    <div class="player-info">
+                        <div class="player-name">Firoz Ahmed</div>
+                        <span class="player-pos">Winger</span>
+                        <p class="player-bio">Speedster down the flanks.</p>
+                    </div>
+                </div>
+                <!-- B Team Player 11 -->
+                <div class="player-card">
+                    <div class="player-img-wrapper">
+                        <span class="player-jersey-num">30</span>
+                        <img src="https://picsum.photos/seed/p24/300/300" alt="Player 24">
+                    </div>
+                    <div class="player-info">
+                        <div class="player-name">Barik Miah</div>
+                        <span class="player-pos">Midfielder</span>
+                        <p class="player-bio">Young and energetic talent.</p>
+                    </div>
+                </div>
+                <!-- B Team Player 12 -->
+                <div class="player-card">
+                    <div class="player-img-wrapper">
+                        <span class="player-jersey-num">31</span>
+                        <img src="https://picsum.photos/seed/p25/300/300" alt="Player 25">
+                    </div>
+                    <div class="player-info">
+                        <div class="player-name">Hanif Sheikh</div>
+                        <span class="player-pos">Defender</span>
+                        <p class="player-bio">Strong in the air.</p>
+                    </div>
+                </div>
+                <!-- B Team Player 13 -->
+                <div class="player-card">
+                    <div class="player-img-wrapper">
+                        <span class="player-jersey-num">32</span>
+                        <img src="https://picsum.photos/seed/p26/300/300" alt="Player 26">
+                    </div>
+                    <div class="player-info">
+                        <div class="player-name">Rony Talukder</div>
+                        <span class="player-pos">Striker</span>
+                        <p class="player-bio">Academy product, sharp shooter.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Matches Section -->
+    <section id="matches">
+        <h2 class="section-title">Upcoming Matches</h2>
+        <table class="match-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Opponent</th>
+                    <th>Venue</th>
+                    <th>Time</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Oct 15, 2023</td>
+                    <td>Panchdona FC</td>
+                    <td>Home Ground</td>
+                    <td>4:00 PM</td>
+                    <td>League</td>
+                </tr>
+                <tr>
+                    <td>Oct 22, 2023</td>
+                    <td>Narsingdi Stars</td>
+                    <td>Narsingdi Stadium</td>
+                    <td>5:00 PM</td>
+                    <td>Cup</td>
+                </tr>
+                <tr>
+                    <td>Oct 29, 2023</td>
+                    <td>Sadarpur Boys</td>
+                    <td>Home Ground</td>
+                    <td>4:30 PM</td>
+                    <td>Friendly</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Tournaments & Stats -->
+    <section id="tournaments" style="background-color: #fff;">
+        <h2 class="section-title">Tournaments & Achievements</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 40px;">
+            <div style="flex: 1; min-width: 300px;">
+                <h3 style="margin-bottom: 15px;">Running Tournaments</h3>
+                <ul>
+                    <li style="padding: 10px; background: #eee; margin-bottom: 5px;">🏆 Narsingdi Super League (Group Stage)</li>
+                    <li style="padding: 10px; background: #eee; margin-bottom: 5px;">🥈 Independence Cup (Quarter Final)</li>
+                </ul>
+            </div>
+            <div style="flex: 1; min-width: 300px;">
+                <h3 style="margin-bottom: 15px;">Past Honors</h3>
+                <ul>
+                    <li style="padding: 10px; background: #eee; margin-bottom: 5px;">🥇 Summer Cup Winners 2021</li>
+                    <li style="padding: 10px; background: #eee; margin-bottom: 5px;">🥇 Inter-Union Champions 2019</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="stats">
+        <h2 class="section-title">Club Statistics (This Season)</h2>
+        <div class="stats-container">
+            <div class="stat-box">
+                <div class="stat-number">24</div>
+                <div class="stat-label">Matches Played</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">18</div>
+                <div class="stat-label">Wins</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">42</div>
+                <div class="stat-label">Goals Scored</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">12</div>
+                <div class="stat-label">Clean Sheets</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News -->
+    <section id="news" style="background-color: #fff;">
+        <h2 class="section-title">Latest News</h2>
+        <div class="player-grid">
+            <div class="player-card">
+                <img src="image/G13.jpg" alt="News 1" style="height: 200px; object-fit: cover;">
+                <div class="player-info" style="text-align: left;">
+                    <h4 style="margin-bottom: 5px;">Victory in Derby Match</h4>
+                    <p style="font-size: 0.9rem;">Brothers United defeats rival 2-0 in a thrilling encounter.</p>
+                </div>
+            </div>
+            <div class="player-card">
+                <img src="image/G8.jpg" alt="News 2" style="height: 200px; object-fit: cover;">
+                <div class="player-info" style="text-align: left;">
+                    <h4 style="margin-bottom: 5px;">New Jersey Unveiled</h4>
+                    <p style="font-size: 0.9rem;">Check out our new home kit for the upcoming season.</p>
+                </div>
+            </div>
+            <div class="player-card">
+                <img src="image/G21.jpg" alt="News 3" style="height: 200px; object-fit: cover;">
+                <div class="player-info" style="text-align: left;">
+                    <h4 style="margin-bottom: 5px;">Academy Opening</h4>
+                    <p style="font-size: 0.9rem;">Registration starts for the new youth football academy.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery">
+        <h2 class="section-title">Photo Gallery</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="image/G1.jpg" alt="Gallery Image"></div>
+            <div class="gallery-item"><img src="image/G2.jpg" alt="Gallery Image"></div>
+            <div class="gallery-item"><img src="image/G3.jpg" alt="Gallery Image"></div>
+            <div class="gallery-item"><img src="image/G4.jpg" alt="Gallery Image"></div>
+            <div class="gallery-item"><img src="image/G5.jpg" alt="Gallery Image"></div>
+            <div class="gallery-item"><img src="image/G6.jpg" alt="Gallery Image"></div>
+            <div class="gallery-item"><img src="image/G7.jpg" alt="Gallery Image"></div>
+            <div class="gallery-item"><img src="image/G8.jpg" alt="Gallery Image"></div>
+            <div class="gallery-item"><img src="image/G9.jpg" alt="Gallery Image"></div>
+            <div class="gallery-item"><img src="image/G10.jpg" alt="Gallery Image"></div>
+            <div class="gallery-item"><img src="image/G11.jpg" alt="Gallery Image"></div>
+            <div class="gallery-item"><img src="image/G12.jpg" alt="Gallery Image"></div>
+            <div class="gallery-item"><img src="image/G13.jpg" alt="Gallery Image"></div>
+            <div class="gallery-item"><img src="image/G14.jpg" alt="Gallery Image"></div>
+            <div class="gallery-item"><img src="image/G15.jpg" alt="Gallery Image"></div>
+            <div class="gallery-item"><img src="image/G16.jpg" alt="Gallery Image"></div>
+            <div class="gallery-item"><img src="image/G17.jpg" alt="Gallery Image"></div>
+            <div class="gallery-item"><img src="image/G18.jpg" alt="Gallery Image"></div>
+            <div class="gallery-item"><img src="image/G19.jpg" alt="Gallery Image"></div>
+            <div class="gallery-item"><img src="image/G20.jpg" alt="Gallery Image"></div>
+        </div>
+    </section>
+
+    <!-- Sponsors (Simple) -->
+    <section id="sponsors" style="background-color: var(--primary-color); color: white; text-align: center;">
+        <h2 class="section-title" style="color: var(--accent-color);">Our Sponsors</h2>
+        <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
+            <div style="background: white; padding: 15px 30px; color: black; font-weight: bold; border-radius: 5px;">SPONSOR 1</div>
+            <div style="background: white; padding: 15px 30px; color: black; font-weight: bold; border-radius: 5px;">SPONSOR 2</div>
+            <div style="background: white; padding: 15px 30px; color: black; font-weight: bold; border-radius: 5px;">SPONSOR 3</div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" style="background-color: white;">
+        <h2 class="section-title">Contact Us</h2>
+        <div class="contact-wrapper">
+            <div class="contact-info">
+                <h3>Get in Touch</h3>
+                <p><strong>Address:</strong> Nehabo, Panchdona, Narsingdi Sadar, Narsingdi</p>
+                <p><strong>Email:</strong> info@brothersunited.com</p>
+                <p><strong>Phone:</strong> +880 1980963669</p>
+                <!-- Google Map Placeholder -->
+                <div style="background: #eee; width: 100%; height: 200px; margin-top: 20px; display: flex; align-items: center; justify-content: center; color: #666;">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d911.8650736473919!2d90.64028853209761!3d23.908749502551533!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x375433d37eaf275d%3A0xa2ed1f64a15e1a46!2z4Kao4KeH4Ka54Ka-4KawIOCmquCnjeCmsOCmvuCmh-CmruCmvuCmsOCmvyDgprjgp43gppXgp4HgprIg4KaW4KeH4Kay4Ka-4KawIOCmruCmvuCmoA!5e0!3m2!1sen!2sbd!4v1781524360478!5m2!1sen!2sbd" width="600" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+            <div class="contact-form">
+                <form>
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea rows="5" placeholder="Your Message" required></textarea>
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <p>&copy; 2023 Brothers United Club. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
