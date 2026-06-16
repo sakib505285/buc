@@ -14,12 +14,14 @@
             --bg-light: #f9f9f9;
             --card-bg: #ffffff;
             --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --transition-speed: 0.4s;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            scroll-behavior: smooth;
         }
 
         body {
@@ -27,21 +29,42 @@
             color: var(--text-dark);
             background-color: var(--bg-light);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        a { text-decoration: none; color: inherit; transition: var(--transition-speed); }
         ul { list-style: none; }
         img { max-width: 100%; display: block; }
 
+        /* --- Animation Utilities --- */
+        /* Fade In Up Animation Class (Triggered by JS) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered delay for grid items */
+        .reveal.delay-100 { transition-delay: 0.1s; }
+        .reveal.delay-200 { transition-delay: 0.2s; }
+        .reveal.delay-300 { transition-delay: 0.3s; }
+
         /* --- Header & Navigation --- */
         header {
-            background-color: var(--primary-color);
+            background-color: rgba(10, 35, 66, 0.95);
+            backdrop-filter: blur(10px);
             color: var(--text-light);
             padding: 1rem 5%;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
         }
 
         .nav-container {
@@ -53,144 +76,238 @@
 
         .logo {
             font-size: 1.8rem;
-            font-weight: bold;
+            font-weight: 800;
             color: var(--accent-color);
             text-transform: uppercase;
             letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Mobile Menu Button */
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--accent-color);
         }
 
         nav ul {
             display: flex;
-            gap: 20px;
+            gap: 25px;
             flex-wrap: wrap;
         }
 
         nav a {
             color: var(--text-light);
             font-weight: 500;
-            padding: 5px 10px;
+            padding: 8px 12px;
+            position: relative;
+            border-radius: 4px;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--accent-color);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
         }
 
         nav a:hover {
             color: var(--accent-color);
-            border-bottom: 2px solid var(--accent-color);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        nav a:hover::after {
+            width: 80%;
         }
 
         /* --- Hero Section --- */
         .hero {
-            background: linear-gradient(rgba(10, 35, 66, 0.8), rgba(10, 35, 66, 0.8)), 
+            background: linear-gradient(rgba(10, 35, 66, 0.85), rgba(10, 35, 66, 0.7)), 
                         url('https://picsum.photos/seed/stadium/1920/1080') no-repeat center center/cover;
-            height: 80vh;
+            background-attachment: fixed; /* Parallax effect */
+            height: 90vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: white;
             padding: 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 20%, #0a2342 150%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
         }
 
         .hero-content h1 {
             font-size: 3.5rem;
             margin-bottom: 1rem;
             text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: slideDown 1s ease forwards;
+            opacity: 0;
+            transform: translateY(-30px);
         }
 
         .hero-content p {
             font-size: 1.5rem;
             margin-bottom: 2rem;
+            animation: fadeIn 1.5s ease forwards;
+            opacity: 0;
+            animation-delay: 0.5s;
+        }
+
+        .hero-btn-wrapper {
+            animation: fadeInUp 1s ease forwards;
+            opacity: 0;
+            animation-delay: 1s;
         }
 
         .btn {
             background-color: var(--accent-color);
             color: var(--primary-color);
-            padding: 12px 30px;
-            border-radius: 5px;
+            padding: 14px 35px;
+            border-radius: 50px;
             font-weight: bold;
             display: inline-block;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid transparent;
         }
 
         .btn:hover {
-            background-color: #e6c200;
-            transform: translateY(-2px);
+            background-color: transparent;
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
         }
 
         /* --- Section Styling --- */
         section {
-            padding: 60px 5%;
+            padding: 80px 5%;
+            position: relative;
         }
 
         .section-title {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             color: var(--primary-color);
             font-size: 2.5rem;
             text-transform: uppercase;
             position: relative;
+            font-weight: 800;
         }
 
         .section-title::after {
             content: '';
             display: block;
-            width: 60px;
-            height: 4px;
+            width: 80px;
+            height: 5px;
             background-color: var(--accent-color);
-            margin: 10px auto;
+            margin: 15px auto;
+            border-radius: 2px;
+            transition: width 0.3s;
+        }
+
+        section:hover .section-title::after {
+            width: 120px;
         }
 
         /* --- About Us --- */
         .about-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 50px;
             align-items: center;
         }
 
-        .about-text h3 { margin-bottom: 15px; font-size: 1.8rem; }
+        .about-text h3 { margin-bottom: 15px; font-size: 1.8rem; color: var(--primary-color); }
         .about-text ul { margin-top: 15px; }
-        .about-text li { margin-bottom: 8px; }
-        .about-img img { border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .about-text li { margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        .about-text li::before {
+            content: '✔';
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+        
+        .about-img {
+            position: relative;
+        }
+
+        .about-img img {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.5s ease;
+        }
+
+        .about-img:hover img {
+            transform: scale(1.02);
+        }
 
         /* --- Team (Players) --- */
         .team-section { background-color: #fff; }
         
         .team-category {
-            margin-bottom: 60px;
+            margin-bottom: 80px;
         }
 
         .team-category-title {
             font-size: 1.8rem;
             color: var(--primary-color);
             border-left: 5px solid var(--accent-color);
-            padding-left: 15px;
-            margin-bottom: 30px;
-            background: #eee;
-            padding: 10px 15px;
-            border-radius: 0 5px 5px 0;
+            padding-left: 20px;
+            margin-bottom: 40px;
+            background: linear-gradient(90deg, #f0f0f0, #fff);
+            padding: 15px 20px;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
         .player-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 30px;
         }
 
         .player-card {
             background: var(--card-bg);
-            border-radius: 10px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-            border: 1px solid #eee;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #f0f0f0;
+            position: relative;
         }
 
         .player-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            transform: translateY(-15px);
+            box-shadow: 0 15px 30px rgba(10, 35, 66, 0.2);
         }
 
         .player-img-wrapper {
             width: 100%;
-            height: 250px;
+            height: 280px;
             overflow: hidden;
             background-color: #ddd;
             position: relative;
@@ -200,44 +317,65 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .player-card:hover .player-img-wrapper img {
+            transform: scale(1.1);
         }
 
         .player-jersey-num {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 15px;
+            right: 15px;
             background-color: var(--accent-color);
             color: var(--primary-color);
-            width: 35px;
-            height: 35px;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
+            font-weight: 800;
             border-radius: 50%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 2;
         }
 
-        .player-info { padding: 15px; text-align: center; }
-        .player-name { font-size: 1.2rem; font-weight: bold; color: var(--primary-color); margin-bottom: 5px; }
-        .player-pos { color: #666; font-size: 0.9rem; text-transform: uppercase; margin-bottom: 10px; display: block; }
-        .player-bio { font-size: 0.85rem; color: #555; line-height: 1.4; }
+        .player-info { padding: 20px; text-align: center; background: white; position: relative; z-index: 2; }
+        .player-name { font-size: 1.3rem; font-weight: bold; color: var(--primary-color); margin-bottom: 5px; }
+        .player-pos { color: #888; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 12px; display: inline-block; border-bottom: 2px solid #eee; padding-bottom: 2px; letter-spacing: 1px; }
+        .player-bio { font-size: 0.9rem; color: #666; line-height: 1.5; }
 
         /* --- Matches & Tables --- */
         .match-table {
             width: 100%;
-            border-collapse: collapse;
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-collapse: separate;
+            border-spacing: 0 10px;
+            background: transparent;
         }
 
-        .match-table th, .match-table td {
+        .match-table th {
             padding: 15px;
             text-align: left;
-            border-bottom: 1px solid #ddd;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--accent-color);
         }
 
-        .match-table th { background-color: var(--primary-color); color: white; }
-        .match-table tr:hover { background-color: #f1f1f1; }
+        .match-table td {
+            padding: 15px;
+            background: white;
+            border-bottom: 1px solid #eee;
+        }
+
+        .match-table tr td:first-child { border-radius: 8px 0 0 8px; }
+        .match-table tr td:last-child { border-radius: 0 8px 8px 0; }
+        
+        .match-table tr:hover td {
+            background: #f8f9fa;
+            transform: scale(1.01);
+            transition: transform 0.2s;
+            cursor: default;
+        }
 
         /* --- Gallery --- */
         .gallery-grid {
@@ -245,41 +383,92 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 15px;
         }
+        
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            height: 220px;
+        }
+
         .gallery-item img {
             width: 100%;
-            height: 200px;
+            height: 100%;
             object-fit: cover;
-            border-radius: 5px;
-            transition: 0.3s;
+            transition: transform 0.5s ease;
         }
-        .gallery-item img:hover { transform: scale(1.03); }
+        
+        .gallery-item:hover img {
+            transform: scale(1.15) rotate(2deg);
+        }
 
         /* --- Statistics --- */
         .stats-container {
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 30px;
             text-align: center;
         }
-        .stat-box { background: white; padding: 20px; border-radius: 8px; width: 200px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .stat-number { font-size: 2.5rem; color: var(--primary-color); font-weight: bold; }
-        .stat-label { color: #666; }
+        
+        .stat-box { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 15px; 
+            width: 220px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+            border-bottom: 4px solid var(--accent-color);
+        }
+        
+        .stat-box:hover {
+            transform: translateY(-10px);
+        }
+
+        .stat-number { 
+            font-size: 3rem; 
+            color: var(--primary-color); 
+            font-weight: 800; 
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label { color: #666; font-weight: 600; text-transform: uppercase; font-size: 0.9rem; }
 
         /* --- Contact --- */
         .contact-wrapper {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 50px;
         }
-        .contact-info div { margin-bottom: 20px; }
+        
+        .contact-info div { 
+            margin-bottom: 25px; 
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .contact-info h3 { margin-bottom: 20px; color: var(--primary-color); }
+        
         .contact-form input, .contact-form textarea {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+            background: #fdfdfd;
         }
+        
+        .contact-form input:focus, .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.1);
+        }
+        
         .contact-form button { width: 100%; cursor: pointer; border: none; }
 
         /* --- Footer --- */
@@ -287,38 +476,83 @@
             background-color: var(--primary-color);
             color: white;
             text-align: center;
-            padding: 20px;
-            margin-top: 40px;
+            padding: 40px 20px;
+            margin-top: 0;
+            position: relative;
         }
-        .footer-links { margin-bottom: 10px; }
-        .footer-links a { margin: 0 10px; font-size: 0.9rem; }
+        
+        .footer-links { margin-bottom: 20px; }
+        .footer-links a { 
+            margin: 0 15px; 
+            font-size: 0.95rem; 
+            opacity: 0.8;
+            position: relative;
+        }
+        
+        .footer-links a:hover { opacity: 1; color: var(--accent-color); }
+
+        /* --- Keyframes --- */
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         /* --- Responsive --- */
-        @media (max-width: 768px) {
-            .nav-container { flex-direction: column; gap: 15px; }
+        @media (max-width: 900px) {
+            .menu-toggle { display: block; }
+            
+            nav {
+                width: 100%;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease-out;
+                background-color: var(--primary-color);
+            }
+            
+            nav.nav-active {
+                max-height: 400px;
+                padding: 10px 0;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
             .hero-content h1 { font-size: 2.5rem; }
             .contact-wrapper { grid-template-columns: 1fr; }
-            .player-img-wrapper { height: 200px; }
+            .player-img-wrapper { height: 220px; }
+            .about-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
     <!-- Header -->
-    <header>
+    <header id="main-header">
         <div class="nav-container">
-            <div class="logo">Brothers United Club</div>
-            <nav>
+            <div class="logo">⚽ Brothers United Club</div>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <nav id="navbar">
                 <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About Us</a></li>
-                    <li><a href="#team">Team</a></li>
-                    <li><a href="#matches">Matches</a></li>
-                    <li><a href="#tournaments">Tournaments</a></li>
-                    <li><a href="#news">News</a></li>
-                    <li><a href="#gallery">Gallery</a></li>
-                    <li><a href="#stats">Stats</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#home" onclick="toggleMenu()">Home</a></li>
+                    <li><a href="#about" onclick="toggleMenu()">About Us</a></li>
+                    <li><a href="#team" onclick="toggleMenu()">Team</a></li>
+                    <li><a href="#matches" onclick="toggleMenu()">Matches</a></li>
+                    <li><a href="#tournaments" onclick="toggleMenu()">Tournaments</a></li>
+                    <li><a href="#news" onclick="toggleMenu()">News</a></li>
+                    <li><a href="#gallery" onclick="toggleMenu()">Gallery</a></li>
+                    <li><a href="#stats" onclick="toggleMenu()">Stats</a></li>
+                    <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
                 </ul>
             </nav>
         </div>
@@ -329,18 +563,20 @@
         <div class="hero-content">
             <h1>Welcome to Brothers United Club</h1>
             <p>Unity, Passion, and Victory on the Field</p>
-            <a href="#about" class="btn">Explore Club</a>
+            <div class="hero-btn-wrapper">
+                <a href="#about" class="btn">Explore Club</a>
+            </div>
         </div>
     </section>
 
     <!-- About Us -->
     <section id="about">
-        <h2 class="section-title">About Us</h2>
+        <h2 class="section-title reveal">About Us</h2>
         <div class="about-grid">
-            <div class="about-img">
+            <div class="about-img reveal">
                 <img src="about.jpg" alt="Club House">
             </div>
-            <div class="about-text">
+            <div class="about-text reveal delay-200">
                 <h3>Club History & Mission</h3>
                 <p>Established with a vision to promote sportsmanship and football talent in Narsingdi, Brothers United Club has been a cornerstone of local football. Our mission is to nurture young talent and bring glory to our community.</p>
                 <br>
@@ -355,19 +591,18 @@
         </div>
     </section>
 
-    <!-- Team Section (26 Players: 13 A-Team, 13 B-Team) -->
+    <!-- Team Section -->
     <section id="team" class="team-section">
-        <h2 class="section-title">Our Squad</h2>
+        <h2 class="section-title reveal">Our Squad</h2>
         
         <!-- A Team -->
         <div class="team-category">
-            <h3 class="team-category-title">First Team (A Team)</h3>
+            <h3 class="team-category-title reveal">First Team (A Team)</h3>
             <div class="player-grid">
                 <!-- A Team Player 1 -->
-                <div class="player-card">
+                <div class="player-card reveal delay-100">
                     <div class="player-img-wrapper">
                         <span class="player-jersey-num">01</span>
-                        <!-- Change src below to your player's photo -->
                         <img src="Jaidul.jpeg" alt="Player 1">
                     </div>
                     <div class="player-info">
@@ -377,7 +612,7 @@
                     </div>
                 </div>
                 <!-- A Team Player 2 -->
-                <div class="player-card">
+                <div class="player-card reveal delay-200">
                     <div class="player-img-wrapper">
                         <span class="player-jersey-num">04</span>
                         <img src="LIMON.jpg" alt="Player 2">
@@ -389,7 +624,7 @@
                     </div>
                 </div>
                 <!-- A Team Player 3 -->
-                <div class="player-card">
+                <div class="player-card reveal delay-300">
                     <div class="player-img-wrapper">
                         <span class="player-jersey-num">11</span>
                         <img src="faysal.jpeg" alt="Player 3">
@@ -401,7 +636,7 @@
                     </div>
                 </div>
                 <!-- A Team Player 4 -->
-                <div class="player-card">
+                <div class="player-card reveal delay-100">
                     <div class="player-img-wrapper">
                         <span class="player-jersey-num">10</span>
                         <img src="Sakib.jpeg" alt="Player 4">
@@ -413,7 +648,7 @@
                     </div>
                 </div>
                 <!-- A Team Player 5 -->
-                <div class="player-card">
+                <div class="player-card reveal delay-200">
                     <div class="player-img-wrapper">
                         <span class="player-jersey-num">02</span>
                         <img src="Ajijul.jpeg" alt="Player 5">
@@ -425,7 +660,7 @@
                     </div>
                 </div>
                 <!-- A Team Player 6 -->
-                <div class="player-card">
+                <div class="player-card reveal delay-300">
                     <div class="player-img-wrapper">
                         <span class="player-jersey-num">05</span>
                         <img src="babu.JPG" alt="Player 6">
@@ -437,7 +672,7 @@
                     </div>
                 </div>
                 <!-- A Team Player 7 -->
-                <div class="player-card">
+                <div class="player-card reveal delay-100">
                     <div class="player-img-wrapper">
                         <span class="player-jersey-num">08</span>
                         <img src="eamin.jpeg" alt="Player 7">
@@ -449,7 +684,7 @@
                     </div>
                 </div>
                 <!-- A Team Player 8 -->
-                <div class="player-card">
+                <div class="player-card reveal delay-200">
                     <div class="player-img-wrapper">
                         <span class="player-jersey-num">12</span>
                         <img src="Sahed.jpeg" alt="Player 8">
@@ -461,10 +696,10 @@
                     </div>
                 </div>
                 <!-- A Team Player 9 -->
-                <div class="player-card">
+                <div class="player-card reveal delay-300">
                     <div class="player-img-wrapper">
                         <span class="player-jersey-num">07</span>
-                        <img src="Riyad.jpeg"Player 9">
+                        <img src="Riyad.jpeg" alt="Player 9">
                     </div>
                     <div class="player-info">
                         <div class="player-name">Riyad Hasan</div>
@@ -473,7 +708,7 @@
                     </div>
                 </div>
                 <!-- A Team Player 10 -->
-                <div class="player-card">
+                <div class="player-card reveal delay-100">
                     <div class="player-img-wrapper">
                         <span class="player-jersey-num">06</span>
                         <img src="Bisal.jpeg" alt="Player 10">
@@ -485,7 +720,7 @@
                     </div>
                 </div>
                 <!-- A Team Player 11 -->
-                <div class="player-card">
+                <div class="player-card reveal delay-200">
                     <div class="player-img-wrapper">
                         <span class="player-jersey-num">03</span>
                         <img src="Asraful.JPG" alt="Player 11">
@@ -497,7 +732,7 @@
                     </div>
                 </div>
                 <!-- A Team Player 12 -->
-                <div class="player-card">
+                <div class="player-card reveal delay-300">
                     <div class="player-img-wrapper">
                         <span class="player-jersey-num">12</span>
                         <img src="adnan.jpeg" alt="Player 12">
@@ -509,7 +744,7 @@
                     </div>
                 </div>
                 <!-- A Team Player 13 -->
-                <div class="player-card">
+                <div class="player-card reveal delay-100">
                     <div class="player-img-wrapper">
                         <span class="player-jersey-num">99</span>
                         <img src="avatar.png" alt="Player 13">
@@ -525,10 +760,10 @@
 
         <!-- B Team -->
         <div class="team-category">
-            <h3 class="team-category-title">Reserve Team (B Team)</h3>
+            <h3 class="team-category-title reveal">Reserve Team (B Team)</h3>
             <div class="player-grid">
                 <!-- B Team Player 1 -->
-                <div class="player-card">
+                <div class="player-card reveal delay-100">
                     <div class="player-img-wrapper">
                         <span class="player-jersey-num">1</span>
                         <img src="Mohon.jpeg" alt="Player 14">
@@ -540,7 +775,7 @@
                     </div>
                 </div>
                 <!-- B Team Player 2 -->
-                <div class="player-card">
+                <div class="player-card reveal delay-200">
                     <div class="player-img-wrapper">
                         <span class="player-jersey-num">22</span>
                         <img src="https://picsum.photos/seed/p15/300/300" alt="Player 15">
@@ -552,7 +787,7 @@
                     </div>
                 </div>
                 <!-- B Team Player 3 -->
-                <div class="player-card">
+                <div class="player-card reveal delay-300">
                     <div class="player-img-wrapper">
                         <span class="player-jersey-num">24</span>
                         <img src="https://picsum.photos/seed/p16/300/300" alt="Player 16">
@@ -564,7 +799,7 @@
                     </div>
                 </div>
                 <!-- B Team Player 4 -->
-                <div class="player-card">
+                <div class="player-card reveal delay-100">
                     <div class="player-img-wrapper">
                         <span class="player-jersey-num">25</span>
                         <img src="https://picsum.photos/seed/p17/300/300" alt="Player 17">
@@ -576,7 +811,7 @@
                     </div>
                 </div>
                 <!-- B Team Player 5 -->
-                <div class="player-card">
+                <div class="player-card reveal delay-200">
                     <div class="player-img-wrapper">
                         <span class="player-jersey-num">21</span>
                         <img src="https://picsum.photos/seed/p18/300/300" alt="Player 18">
@@ -588,7 +823,7 @@
                     </div>
                 </div>
                 <!-- B Team Player 6 -->
-                <div class="player-card">
+                <div class="player-card reveal delay-300">
                     <div class="player-img-wrapper">
                         <span class="player-jersey-num">23</span>
                         <img src="https://picsum.photos/seed/p19/300/300" alt="Player 19">
@@ -600,7 +835,7 @@
                     </div>
                 </div>
                 <!-- B Team Player 7 -->
-                <div class="player-card">
+                <div class="player-card reveal delay-100">
                     <div class="player-img-wrapper">
                         <span class="player-jersey-num">26</span>
                         <img src="https://picsum.photos/seed/p20/300/300" alt="Player 20">
@@ -612,7 +847,7 @@
                     </div>
                 </div>
                 <!-- B Team Player 8 -->
-                <div class="player-card">
+                <div class="player-card reveal delay-200">
                     <div class="player-img-wrapper">
                         <span class="player-jersey-num">27</span>
                         <img src="https://picsum.photos/seed/p21/300/300" alt="Player 21">
@@ -624,7 +859,7 @@
                     </div>
                 </div>
                 <!-- B Team Player 9 -->
-                <div class="player-card">
+                <div class="player-card reveal delay-300">
                     <div class="player-img-wrapper">
                         <span class="player-jersey-num">28</span>
                         <img src="https://picsum.photos/seed/p22/300/300" alt="Player 22">
@@ -636,7 +871,7 @@
                     </div>
                 </div>
                 <!-- B Team Player 10 -->
-                <div class="player-card">
+                <div class="player-card reveal delay-100">
                     <div class="player-img-wrapper">
                         <span class="player-jersey-num">29</span>
                         <img src="https://picsum.photos/seed/p23/300/300" alt="Player 23">
@@ -648,7 +883,7 @@
                     </div>
                 </div>
                 <!-- B Team Player 11 -->
-                <div class="player-card">
+                <div class="player-card reveal delay-200">
                     <div class="player-img-wrapper">
                         <span class="player-jersey-num">30</span>
                         <img src="https://picsum.photos/seed/p24/300/300" alt="Player 24">
@@ -660,7 +895,7 @@
                     </div>
                 </div>
                 <!-- B Team Player 12 -->
-                <div class="player-card">
+                <div class="player-card reveal delay-300">
                     <div class="player-img-wrapper">
                         <span class="player-jersey-num">31</span>
                         <img src="https://picsum.photos/seed/p25/300/300" alt="Player 25">
@@ -672,7 +907,7 @@
                     </div>
                 </div>
                 <!-- B Team Player 13 -->
-                <div class="player-card">
+                <div class="player-card reveal delay-100">
                     <div class="player-img-wrapper">
                         <span class="player-jersey-num">32</span>
                         <img src="https://picsum.photos/seed/p26/300/300" alt="Player 26">
@@ -689,81 +924,83 @@
 
     <!-- Matches Section -->
     <section id="matches">
-        <h2 class="section-title">Upcoming Matches</h2>
-        <table class="match-table">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Opponent</th>
-                    <th>Venue</th>
-                    <th>Time</th>
-                    <th>Type</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Oct 15, 2023</td>
-                    <td>Panchdona FC</td>
-                    <td>Home Ground</td>
-                    <td>4:00 PM</td>
-                    <td>League</td>
-                </tr>
-                <tr>
-                    <td>Oct 22, 2023</td>
-                    <td>Narsingdi Stars</td>
-                    <td>Narsingdi Stadium</td>
-                    <td>5:00 PM</td>
-                    <td>Cup</td>
-                </tr>
-                <tr>
-                    <td>Oct 29, 2023</td>
-                    <td>Sadarpur Boys</td>
-                    <td>Home Ground</td>
-                    <td>4:30 PM</td>
-                    <td>Friendly</td>
-                </tr>
-            </tbody>
-        </table>
+        <h2 class="section-title reveal">Upcoming Matches</h2>
+        <div class="reveal delay-100">
+            <table class="match-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Opponent</th>
+                        <th>Venue</th>
+                        <th>Time</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Oct 15, 2023</td>
+                        <td>Panchdona FC</td>
+                        <td>Home Ground</td>
+                        <td>4:00 PM</td>
+                        <td>League</td>
+                    </tr>
+                    <tr>
+                        <td>Oct 22, 2023</td>
+                        <td>Narsingdi Stars</td>
+                        <td>Narsingdi Stadium</td>
+                        <td>5:00 PM</td>
+                        <td>Cup</td>
+                    </tr>
+                    <tr>
+                        <td>Oct 29, 2023</td>
+                        <td>Sadarpur Boys</td>
+                        <td>Home Ground</td>
+                        <td>4:30 PM</td>
+                        <td>Friendly</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </section>
 
     <!-- Tournaments & Stats -->
     <section id="tournaments" style="background-color: #fff;">
-        <h2 class="section-title">Tournaments & Achievements</h2>
-        <div style="display: flex; flex-wrap: wrap; gap: 40px;">
+        <h2 class="section-title reveal">Tournaments & Achievements</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 40px;" class="reveal delay-100">
             <div style="flex: 1; min-width: 300px;">
-                <h3 style="margin-bottom: 15px;">Running Tournaments</h3>
+                <h3 style="margin-bottom: 20px; color: var(--primary-color);">Running Tournaments</h3>
                 <ul>
-                    <li style="padding: 10px; background: #eee; margin-bottom: 5px;">🏆 Narsingdi Super League (Group Stage)</li>
-                    <li style="padding: 10px; background: #eee; margin-bottom: 5px;">🥈 Independence Cup (Quarter Final)</li>
+                    <li style="padding: 15px; background: #f4f4f4; margin-bottom: 10px; border-left: 4px solid var(--accent-color); border-radius: 4px;">🏆 Narsingdi Super League (Group Stage)</li>
+                    <li style="padding: 15px; background: #f4f4f4; margin-bottom: 10px; border-left: 4px solid silver; border-radius: 4px;">🥈 Independence Cup (Quarter Final)</li>
                 </ul>
             </div>
             <div style="flex: 1; min-width: 300px;">
-                <h3 style="margin-bottom: 15px;">Past Honors</h3>
+                <h3 style="margin-bottom: 20px; color: var(--primary-color);">Past Honors</h3>
                 <ul>
-                    <li style="padding: 10px; background: #eee; margin-bottom: 5px;">🥇 Summer Cup Winners 2021</li>
-                    <li style="padding: 10px; background: #eee; margin-bottom: 5px;">🥇 Inter-Union Champions 2019</li>
+                    <li style="padding: 15px; background: #f4f4f4; margin-bottom: 10px; border-left: 4px solid gold; border-radius: 4px;">🥇 Summer Cup Winners 2021</li>
+                    <li style="padding: 15px; background: #f4f4f4; margin-bottom: 10px; border-left: 4px solid gold; border-radius: 4px;">🥇 Inter-Union Champions 2019</li>
                 </ul>
             </div>
         </div>
     </section>
 
     <section id="stats">
-        <h2 class="section-title">Club Statistics (This Season)</h2>
-        <div class="stats-container">
+        <h2 class="section-title reveal">Club Statistics (This Season)</h2>
+        <div class="stats-container reveal delay-100">
             <div class="stat-box">
-                <div class="stat-number">24</div>
+                <span class="stat-number" data-target="24">0</span>
                 <div class="stat-label">Matches Played</div>
             </div>
             <div class="stat-box">
-                <div class="stat-number">18</div>
+                <span class="stat-number" data-target="18">0</span>
                 <div class="stat-label">Wins</div>
             </div>
             <div class="stat-box">
-                <div class="stat-number">42</div>
+                <span class="stat-number" data-target="42">0</span>
                 <div class="stat-label">Goals Scored</div>
             </div>
             <div class="stat-box">
-                <div class="stat-number">12</div>
+                <span class="stat-number" data-target="12">0</span>
                 <div class="stat-label">Clean Sheets</div>
             </div>
         </div>
@@ -771,27 +1008,33 @@
 
     <!-- News -->
     <section id="news" style="background-color: #fff;">
-        <h2 class="section-title">Latest News</h2>
+        <h2 class="section-title reveal">Latest News</h2>
         <div class="player-grid">
-            <div class="player-card">
-                <img src="G13.jpg" alt="News 1" style="height: 200px; object-fit: cover;">
+            <div class="player-card reveal delay-100">
+                <div style="height: 200px; overflow: hidden;">
+                    <img src="G13.jpg" alt="News 1" style="height: 100%; width: 100%; object-fit: cover;">
+                </div>
                 <div class="player-info" style="text-align: left;">
-                    <h4 style="margin-bottom: 5px;">Victory in Derby Match</h4>
-                    <p style="font-size: 0.9rem;">Brothers United defeats rival 2-0 in a thrilling encounter.</p>
+                    <h4 style="margin-bottom: 8px; color: var(--primary-color);">Victory in Derby Match</h4>
+                    <p style="font-size: 0.9rem; color: #666;">Brothers United defeats rival 2-0 in a thrilling encounter.</p>
                 </div>
             </div>
-            <div class="player-card">
-                <img src="G8.jpg" alt="News 2" style="height: 200px; object-fit: cover;">
+            <div class="player-card reveal delay-200">
+                <div style="height: 200px; overflow: hidden;">
+                    <img src="G8.jpg" alt="News 2" style="height: 100%; width: 100%; object-fit: cover;">
+                </div>
                 <div class="player-info" style="text-align: left;">
-                    <h4 style="margin-bottom: 5px;">New Jersey Unveiled</h4>
-                    <p style="font-size: 0.9rem;">Check out our new home kit for the upcoming season.</p>
+                    <h4 style="margin-bottom: 8px; color: var(--primary-color);">New Jersey Unveiled</h4>
+                    <p style="font-size: 0.9rem; color: #666;">Check out our new home kit for the upcoming season.</p>
                 </div>
             </div>
-            <div class="player-card">
-                <img src="G21.jpg" alt="News 3" style="height: 200px; object-fit: cover;">
+            <div class="player-card reveal delay-300">
+                <div style="height: 200px; overflow: hidden;">
+                    <img src="G21.jpg" alt="News 3" style="height: 100%; width: 100%; object-fit: cover;">
+                </div>
                 <div class="player-info" style="text-align: left;">
-                    <h4 style="margin-bottom: 5px;">Academy Opening</h4>
-                    <p style="font-size: 0.9rem;">Registration starts for the new youth football academy.</p>
+                    <h4 style="margin-bottom: 8px; color: var(--primary-color);">Academy Opening</h4>
+                    <p style="font-size: 0.9rem; color: #666;">Registration starts for the new youth football academy.</p>
                 </div>
             </div>
         </div>
@@ -799,8 +1042,8 @@
 
     <!-- Gallery -->
     <section id="gallery">
-        <h2 class="section-title">Photo Gallery</h2>
-        <div class="gallery-grid">
+        <h2 class="section-title reveal">Photo Gallery</h2>
+        <div class="gallery-grid reveal delay-100">
             <div class="gallery-item"><img src="G1.jpg" alt="Gallery Image"></div>
             <div class="gallery-item"><img src="G2.jpg" alt="Gallery Image"></div>
             <div class="gallery-item"><img src="G3.jpg" alt="Gallery Image"></div>
@@ -827,25 +1070,34 @@
     <!-- Sponsors (Simple) -->
     <section id="sponsors" style="background-color: var(--primary-color); color: white; text-align: center;">
         <h2 class="section-title" style="color: var(--accent-color);">Our Sponsors</h2>
-        <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
-            <div style="background: white; padding: 15px 30px; color: black; font-weight: bold; border-radius: 5px;">SPONSOR 1</div>
-            <div style="background: white; padding: 15px 30px; color: black; font-weight: bold; border-radius: 5px;">SPONSOR 2</div>
-            <div style="background: white; padding: 15px 30px; color: black; font-weight: bold; border-radius: 5px;">SPONSOR 3</div>
+        <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;" class="reveal">
+            <div style="background: white; padding: 20px 40px; color: black; font-weight: bold; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">SPONSOR 1</div>
+            <div style="background: white; padding: 20px 40px; color: black; font-weight: bold; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">SPONSOR 2</div>
+            <div style="background: white; padding: 20px 40px; color: black; font-weight: bold; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">SPONSOR 3</div>
         </div>
     </section>
 
     <!-- Contact -->
     <section id="contact" style="background-color: white;">
-        <h2 class="section-title">Contact Us</h2>
-        <div class="contact-wrapper">
+        <h2 class="section-title reveal">Contact Us</h2>
+        <div class="contact-wrapper reveal delay-100">
             <div class="contact-info">
                 <h3>Get in Touch</h3>
-                <p><strong>Address:</strong> Nehabo, Panchdona, Narsingdi Sadar, Narsingdi</p>
-                <p><strong>Email:</strong> info@brothersunited.com</p>
-                <p><strong>Phone:</strong> +880 1980963669</p>
+                <div>
+                    <span>📍</span> 
+                    <p><strong>Address:</strong> Nehabo, Panchdona, Narsingdi Sadar, Narsingdi</p>
+                </div>
+                <div>
+                    <span>📧</span>
+                    <p><strong>Email:</strong> info@brothersunited.com</p>
+                </div>
+                <div>
+                    <span>📞</span>
+                    <p><strong>Phone:</strong> +880 1980963669</p>
+                </div>
                 <!-- Google Map Placeholder -->
-                <div style="background: #eee; width: 100%; height: 200px; margin-top: 20px; display: flex; align-items: center; justify-content: center; color: #666;">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d911.8650736473919!2d90.64028853209761!3d23.908749502551533!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x375433d37eaf275d%3A0xa2ed1f64a15e1a46!2z4Kao4KeH4Ka54Ka-4KawIOCmquCnjeCmsOCmvuCmh-CmruCmvuCmsOCmvyDgprjgp43gppXgp4HgprIg4KaW4KeH4Kay4Ka-4KawIOCmruCmvuCmoA!5e0!3m2!1sen!2sbd!4v1781524360478!5m2!1sen!2sbd" width="600" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <div style="background: #eee; width: 100%; height: 250px; margin-top: 30px; display: flex; align-items: center; justify-content: center; color: #666; border-radius: 10px; overflow: hidden;">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d911.8650736473919!2d90.64028853209761!3d23.908749502551533!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x375433d37eaf275d%3A0xa2ed1f64a15e1a46!2z4Kao4KeH4Ka54Ka-4KawIOCmquCnjeCmsOCmvuCmh-CmruCmvuCmsOCmvyDgprjgp43gppXgp4HgprIg4KaW4KeH4Kay4Ka-4KawIOCmruCmvuCmoA!5e0!3m2!1sen!2sbd!4v1781524360478!5m2!1sen!2sbd" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
             <div class="contact-form">
@@ -869,5 +1121,79 @@
         <p>&copy; 2023 Brothers United Club. All Rights Reserved.</p>
     </footer>
 
+    <!-- JavaScript for Animations -->
+    <script>
+        // 1. Mobile Menu Toggle
+        function toggleMenu() {
+            const nav = document.getElementById('navbar');
+            nav.classList.toggle('nav-active');
+        }
+
+        // 2. Scroll Reveal Animation
+        // This detects when elements enter the screen and adds the 'active' class
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            const elementVisible = 150; // Distance from bottom to trigger
+
+            revealElements.forEach((reveal) => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        // Trigger once on load
+        revealOnScroll();
+
+        // 3. Number Counter Animation for Stats
+        const statsSection = document.querySelector('#stats');
+        const statNumbers = document.querySelectorAll('.stat-number');
+        let started = false; // Function started flag
+
+        function startCount(el) {
+            const target = +el.getAttribute('data-target');
+            const speed = 200; // The lower the slower
+            const increment = target / speed;
+
+            const updateCount = () => {
+                const count = +el.innerText;
+                if (count < target) {
+                    el.innerText = Math.ceil(count + increment);
+                    setTimeout(updateCount, 20);
+                } else {
+                    el.innerText = target;
+                }
+            };
+            updateCount();
+        }
+
+        // Start counting when stats section is visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && !started) {
+                statNumbers.forEach((num) => startCount(num));
+                started = true;
+            }
+        });
+
+        if(statsSection) {
+            statsObserver.observe(statsSection);
+        }
+
+        // 4. Navbar Glass Effect Enhancement on Scroll
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) {
+                header.style.padding = '0.5rem 5%';
+                header.style.backgroundColor = 'rgba(10, 35, 66, 0.98)';
+            } else {
+                header.style.padding = '1rem 5%';
+                header.style.backgroundColor = 'rgba(10, 35, 66, 0.95)';
+            }
+        });
+    </script>
 </body>
 </html>
