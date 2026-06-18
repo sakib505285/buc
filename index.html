@@ -5,16 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ব্রাদার্স ইউনাইটেড ক্লাব - অফিসিয়াল ওয়েবসাইট</title>
     <style>
-        /* --- CSS Variables & Reset --- */
+        /* --- CSS Variables & Enhanced Design --- */
         :root {
-            --primary-color: #0a2342; /* Navy Blue */
-            --accent-color: #ffd700; /* Gold/Yellow */
-            --text-dark: #333;
+            --primary-color: #0a2342; /* Deep Navy */
+            --primary-gradient: linear-gradient(135deg, #0a2342 0%, #1c4b82 100%);
+            --accent-color: #ffd700; /* Gold */
+            --accent-gradient: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%);
+            --text-dark: #2c3e50;
             --text-light: #f4f4f4;
-            --bg-light: #f9f9f9;
+            --bg-light: #f8f9fa;
             --card-bg: #ffffff;
             --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             --transition-speed: 0.4s;
+            --shadow-soft: 0 10px 30px rgba(0,0,0,0.1);
+            --shadow-hover: 0 15px 35px rgba(10, 35, 66, 0.2);
         }
 
         * {
@@ -37,11 +41,10 @@
         img { max-width: 100%; display: block; }
 
         /* --- Animation Utilities --- */
-        /* Fade In Up Animation Class (Triggered by JS) */
         .reveal {
             opacity: 0;
             transform: translateY(50px);
-            transition: all 0.8s ease-out;
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
         }
 
         .reveal.active {
@@ -49,21 +52,19 @@
             transform: translateY(0);
         }
 
-        /* Staggered delay for grid items */
         .reveal.delay-100 { transition-delay: 0.1s; }
         .reveal.delay-200 { transition-delay: 0.2s; }
         .reveal.delay-300 { transition-delay: 0.3s; }
 
         /* --- Header & Navigation --- */
         header {
-            background-color: rgba(10, 35, 66, 0.95);
-            backdrop-filter: blur(10px);
+            background: var(--primary-gradient);
             color: var(--text-light);
             padding: 1rem 5%;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
             transition: all 0.3s ease;
         }
 
@@ -77,15 +78,17 @@
         .logo {
             font-size: 1.8rem;
             font-weight: 800;
-            color: var(--accent-color);
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             text-transform: uppercase;
             letter-spacing: 1px;
             display: flex;
             align-items: center;
             gap: 10px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
         }
 
-        /* Mobile Menu Button */
         .menu-toggle {
             display: none;
             font-size: 1.5rem;
@@ -121,18 +124,18 @@
 
         nav a:hover {
             color: var(--accent-color);
-            background-color: rgba(255, 255, 255, 0.05);
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
         nav a:hover::after {
-            width: 80%;
+            width: 100%;
         }
 
         /* --- Hero Section --- */
         .hero {
-            background: linear-gradient(rgba(10, 35, 66, 0.85), rgba(10, 35, 66, 0.7)), 
+            background: linear-gradient(rgba(10, 35, 66, 0.8), rgba(10, 35, 66, 0.6)), 
                         url('https://picsum.photos/seed/stadium/1920/1080') no-repeat center center/cover;
-            background-attachment: fixed; /* Parallax effect */
+            background-attachment: fixed;
             height: 90vh;
             display: flex;
             align-items: center;
@@ -150,6 +153,12 @@
             top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle, transparent 20%, #0a2342 150%);
             z-index: 1;
+            animation: pulseBg 10s infinite alternate;
+        }
+
+        @keyframes pulseBg {
+            0% { opacity: 0.8; }
+            100% { opacity: 1; }
         }
 
         .hero-content {
@@ -165,6 +174,7 @@
             animation: slideDown 1s ease forwards;
             opacity: 0;
             transform: translateY(-30px);
+            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
 
         .hero-content p {
@@ -173,6 +183,7 @@
             animation: fadeIn 1.5s ease forwards;
             opacity: 0;
             animation-delay: 0.5s;
+            color: #ddd;
         }
 
         .hero-btn-wrapper {
@@ -182,7 +193,7 @@
         }
 
         .btn {
-            background-color: var(--accent-color);
+            background: var(--accent-gradient);
             color: var(--primary-color);
             padding: 14px 35px;
             border-radius: 50px;
@@ -193,14 +204,13 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn:hover {
-            background-color: transparent;
-            border-color: var(--accent-color);
-            color: var(--accent-color);
             transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.6);
         }
 
         /* --- Section Styling --- */
@@ -224,14 +234,14 @@
             display: block;
             width: 80px;
             height: 5px;
-            background-color: var(--accent-color);
+            background: var(--accent-gradient);
             margin: 15px auto;
             border-radius: 2px;
             transition: width 0.3s;
         }
 
         section:hover .section-title::after {
-            width: 120px;
+            width: 140px;
         }
 
         /* --- About Us --- */
@@ -253,19 +263,21 @@
         
         .about-img {
             position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
         }
 
         .about-img img {
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            width: 100%;
             transition: transform 0.5s ease;
         }
 
         .about-img:hover img {
-            transform: scale(1.02);
+            transform: scale(1.05);
         }
 
-        /* --- Team (Players) --- */
+        /* --- Team --- */
         .team-section { background-color: #fff; }
         
         .team-category {
@@ -294,7 +306,7 @@
             background: var(--card-bg);
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: var(--shadow-soft);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 1px solid #f0f0f0;
             position: relative;
@@ -302,7 +314,7 @@
 
         .player-card:hover {
             transform: translateY(-15px);
-            box-shadow: 0 15px 30px rgba(10, 35, 66, 0.2);
+            box-shadow: var(--shadow-hover);
         }
 
         .player-img-wrapper {
@@ -328,7 +340,7 @@
             position: absolute;
             top: 15px;
             right: 15px;
-            background-color: var(--accent-color);
+            background: var(--accent-gradient);
             color: var(--primary-color);
             width: 40px;
             height: 40px;
@@ -337,7 +349,7 @@
             justify-content: center;
             font-weight: 800;
             border-radius: 50%;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             z-index: 2;
         }
 
@@ -389,6 +401,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             height: 220px;
+            cursor: pointer;
         }
 
         .gallery-item img {
@@ -416,7 +429,7 @@
             padding: 30px; 
             border-radius: 15px; 
             width: 220px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            box-shadow: var(--shadow-soft);
             transition: transform 0.3s;
             border-bottom: 4px solid var(--accent-color);
         }
@@ -455,10 +468,10 @@
             width: 100%;
             padding: 15px;
             margin-bottom: 20px;
-            border: 1px solid #ddd;
+            border: 2px solid #e0e0e0;
             border-radius: 8px;
             font-family: inherit;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
             background: #fdfdfd;
         }
         
@@ -467,13 +480,14 @@
             border-color: var(--accent-color);
             background: white;
             box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.1);
+            transform: translateY(-2px);
         }
         
         .contact-form button { width: 100%; cursor: pointer; border: none; }
 
         /* --- Footer --- */
         footer {
-            background-color: var(--primary-color);
+            background: var(--primary-gradient);
             color: white;
             text-align: center;
             padding: 40px 20px;
@@ -490,6 +504,136 @@
         }
         
         .footer-links a:hover { opacity: 1; color: var(--accent-color); }
+
+        /* --- Admin Button (Hidden Feature) --- */
+        .admin-trigger {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            opacity: 0.1;
+            cursor: pointer;
+            transition: opacity 0.3s;
+            z-index: 9999;
+        }
+        .admin-trigger:hover { opacity: 0.5; }
+
+        /* --- Custom Modal / Popup Styles --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: scale(0.7);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .modal-overlay.open .modal-content {
+            transform: scale(1);
+        }
+
+        /* Success Icon Animation */
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #4CAF50;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 40px;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+
+        .modal-title {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .modal-text {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .modal-btn {
+            background: var(--accent-gradient);
+            border: none;
+            padding: 10px 30px;
+            border-radius: 25px;
+            color: var(--primary-color);
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .modal-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+
+        /* Admin Login Specifics */
+        .admin-input {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            text-align: center;
+            letter-spacing: 5px;
+        }
+        
+        .admin-input:focus { border-color: var(--primary-color); outline: none; }
+
+        /* Message List Styles */
+        .message-container {
+            max-width: 600px;
+            width: 95%;
+            max-height: 80vh;
+            overflow-y: auto;
+            text-align: left;
+        }
+
+        .message-item {
+            background: #f9f9f9;
+            border-left: 4px solid var(--accent-color);
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+
+        .msg-meta { font-size: 0.8rem; color: #888; margin-bottom: 5px; display: flex; justify-content: space-between; }
+        .msg-body { font-size: 0.95rem; color: #333; }
 
         /* --- Keyframes --- */
         @keyframes slideDown {
@@ -508,7 +652,6 @@
         /* --- Responsive --- */
         @media (max-width: 900px) {
             .menu-toggle { display: block; }
-            
             nav {
                 width: 100%;
                 max-height: 0;
@@ -516,18 +659,8 @@
                 transition: max-height 0.4s ease-out;
                 background-color: var(--primary-color);
             }
-            
-            nav.nav-active {
-                max-height: 400px;
-                padding: 10px 0;
-            }
-
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
-            }
-
+            nav.nav-active { max-height: 400px; padding: 10px 0; }
+            nav ul { flex-direction: column; align-items: center; gap: 10px; }
             .hero-content h1 { font-size: 2.5rem; }
             .contact-wrapper { grid-template-columns: 1fr; }
             .player-img-wrapper { height: 220px; }
@@ -1091,7 +1224,7 @@
     </section>
 
     <!-- Sponsors (Simple) -->
-    <section id="sponsors" style="background-color: var(--primary-color); color: white; text-align: center;">
+    <section id="sponsors" style="background: var(--primary-gradient); color: white; text-align: center;">
         <h2 class="section-title" style="color: var(--accent-color);">আমাদের স্পনসর</h2>
         <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;" class="reveal">
             <div style="background: white; padding: 20px 40px; color: black; font-weight: bold; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">স্পনসর ১</div>
@@ -1120,16 +1253,16 @@
                 </div>
                 <!-- Google Map Placeholder -->
                 <div style="background: #eee; width: 100%; height: 250px; margin-top: 30px; display: flex; align-items: center; justify-content: center; color: #666; border-radius: 10px; overflow: hidden;">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d911.8650736473919!2d90.64028853209761!3d23.908749502551533!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x375433d37eaf275d%3A0xa2ed1f64a15e1a46!2z4Kao4KeH4Ka54Ka-4KawIOCmquCnjeCmsOCmvuCmh-CmruCmvuCmsOCmvyDgprjgp43gppXgp4HgprIg4KaW4KeH4Kay4Ka-4KawIOCmruCmvuCmoA!5e0!3m2!1sen!2sbd!4v1781524360478!5m2!1sen!2sbd" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d911.8650736473919!2d90.64028853209761!3d23.908749502551533!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x375433d37eaf275d%3A0xa2ed1f64a15e1a46!2z4Kao4KeH4Ka54Ka-4Kaw4KeL4Ka54Ka-4Kaw4KeG4Ka24KeN4Kaf4Ka_4Kao4KeN4Kaw4KeG4Ka2IOCmquCnjeCmsOCmvuCmh-CmrOCmvuCmsOCmvyDgprjgp43gppXgp4HgprIg4KaW4KeH4Kay4Ka-4KawIOCmrOCmvuCmoA!5e0!3m2!1sen!2sbd!4v1781524360478!5m2!1sen!2sbd" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
             <div class="contact-form">
-                <!-- Form এর আইডি দেওয়া হয়েছে whatsappMessage -->
-                <form id="whatsappMessage" onsubmit="sendToWhatsapp(event)">
+                <!-- Form Submit Handler Changed -->
+                <form id="contactForm" onsubmit="handleContactSubmit(event)">
                     <input type="text" id="name" placeholder="আপনার নাম" required>
                     <input type="email" id="email" placeholder="আপনার ইমেইল" required>
                     <textarea rows="5" id="message" placeholder="আপনার বার্তা লিখুন" required></textarea>
-                    <button type="submit" class="btn">হোয়াটসঅ্যাপে পাঠান</button>
+                    <button type="submit" class="btn">বার্তা পাঠান</button>
                 </form>
             </div>
         </div>
@@ -1145,7 +1278,52 @@
         <p>&copy; ২০২৫ ব্রাদার্স ইউনাইটেড ক্লাব. সর্বস্বত্ব সংরক্ষিত.</p>
     </footer>
 
-    <!-- JavaScript for Animations -->
+    <!-- Admin Trigger Button (Hidden Feature) -->
+    <div class="admin-trigger" onclick="openAdminLogin()">
+        🔒 Admin
+    </div>
+
+    <!-- Modals -->
+
+    <!-- 1. Success Modal -->
+    <div id="successModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="success-icon">✓</div>
+            <h3 class="modal-title">সফল হয়েছে!</h3>
+            <p class="modal-text">আপনার বার্তা আমাদের কাছে সফলভাবে পৌঁছেছে। আমরা শীঘ্রই যোগাযোগ করব।</p>
+            <button class="modal-btn" onclick="closeModal('successModal')">ঠিক আছে</button>
+        </div>
+    </div>
+
+    <!-- 2. Admin Login Modal -->
+    <div id="loginModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 class="modal-title">অ্যাডমিন ভেরিফিকেশন</h3>
+            <p class="modal-text">অনুগ্রহ করে পিন নম্বর দিন:</p>
+            <input type="password" id="adminPin" class="admin-input" placeholder="****">
+            <div style="display:flex; gap:10px; justify-content:center;">
+                <button class="modal-btn" style="background:#ccc; color:#333;" onclick="closeModal('loginModal')">বাতিল</button>
+                <button class="modal-btn" onclick="verifyAdmin()">ভেরিফাই</button>
+            </div>
+            <p id="loginError" style="color:red; margin-top:10px; font-size:0.9rem; display:none;">ভুল পিন! আবার চেষ্টা করুন।</p>
+        </div>
+    </div>
+
+    <!-- 3. Messages View Modal -->
+    <div id="messagesModal" class="modal-overlay">
+        <div class="modal-content message-container">
+            <h3 class="modal-title" style="text-align:center;">প্রাপ্ত বার্তাসমূহ</h3>
+            <div id="messagesList">
+                <!-- Messages will be loaded here by JS -->
+                <p style="text-align:center; color:#888;">কোনো বার্তা নেই।</p>
+            </div>
+            <div style="text-align:center; margin-top:20px;">
+                <button class="modal-btn" onclick="closeModal('messagesModal')">বন্ধ করুন</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
     <script>
         // 1. Mobile Menu Toggle
         function toggleMenu() {
@@ -1155,11 +1333,9 @@
 
         // 2. Scroll Reveal Animation
         const revealElements = document.querySelectorAll('.reveal');
-
         const revealOnScroll = () => {
             const windowHeight = window.innerHeight;
             const elementVisible = 150; 
-
             revealElements.forEach((reveal) => {
                 const elementTop = reveal.getBoundingClientRect().top;
                 if (elementTop < windowHeight - elementVisible) {
@@ -1167,11 +1343,10 @@
                 }
             });
         };
-
         window.addEventListener('scroll', revealOnScroll);
         revealOnScroll();
 
-        // 3. Number Counter Animation for Stats
+        // 3. Number Counter Animation
         const statsSection = document.querySelector('#stats');
         const statNumbers = document.querySelectorAll('.stat-number');
         let started = false; 
@@ -1180,7 +1355,6 @@
             const target = +el.getAttribute('data-target');
             const speed = 200; 
             const increment = target / speed;
-
             const updateCount = () => {
                 const count = +el.innerText;
                 if (count < target) {
@@ -1204,38 +1378,105 @@
             statsObserver.observe(statsSection);
         }
 
-        // 4. Navbar Glass Effect Enhancement on Scroll
+        // 4. Navbar Effect
         window.addEventListener('scroll', () => {
             const header = document.getElementById('main-header');
             if (window.scrollY > 50) {
                 header.style.padding = '0.5rem 5%';
-                header.style.backgroundColor = 'rgba(10, 35, 66, 0.98)';
+                header.style.background = 'rgba(10, 35, 66, 0.98)';
             } else {
                 header.style.padding = '1rem 5%';
-                header.style.backgroundColor = 'rgba(10, 35, 66, 0.95)';
+                header.style.background = 'var(--primary-gradient)';
             }
         });
 
-        // 5. WhatsApp Message System (New Feature)
-        function sendToWhatsapp(e) {
-            e.preventDefault(); // Form submit রোধ করা হলো
+        // ---------------------------------------------------------
+        // NEW FEATURES: Contact Form Storage & Admin Verification
+        // ---------------------------------------------------------
 
-            // Input থেকে ভ্যালু নেওয়া
+        // Array to store messages (in memory for this demo)
+        let contactMessages = [];
+
+        // Function to handle Contact Form Submit
+        function handleContactSubmit(e) {
+            e.preventDefault(); // Stop page reload
+
+            // Get values
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const message = document.getElementById('message').value;
+            const date = new Date().toLocaleString('bn-BD');
 
-            // ফোন নাম্বার (BD কোড সহ)
-            const phoneNumber = "8801980963669";
+            // Save to array
+            contactMessages.unshift({ name, email, message, date });
 
-            // মেসেজ ফরম্যাট করা
-            const text = `নাম: ${name}%0Aইমেইল: ${email}%0Aবার্তা: ${message}`;
+            // Clear form
+            document.getElementById('contactForm').reset();
 
-            // WhatsApp URL তৈরি করা
-            const url = `https://wa.me/${phoneNumber}?text=${text}`;
+            // Show Beautiful Success Modal
+            document.getElementById('successModal').classList.add('open');
+        }
 
-            // নতুন ট্যাবে WhatsApp ওপেন করা
-            window.open(url, '_blank');
+        // Modal Controls
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('open');
+            if(modalId === 'loginModal') {
+                document.getElementById('adminPin').value = '';
+                document.getElementById('loginError').style.display = 'none';
+            }
+        }
+
+        // Open Admin Login
+        function openAdminLogin() {
+            document.getElementById('loginModal').classList.add('open');
+        }
+
+        // Verify Pin (5678)
+        function verifyAdmin() {
+            const pinInput = document.getElementById('adminPin').value;
+            if (pinInput === '5678') {
+                // Success: Close login, Open messages
+                closeModal('loginModal');
+                renderMessages();
+                document.getElementById('messagesModal').classList.add('open');
+            } else {
+                // Error
+                document.getElementById('loginError').style.display = 'block';
+                document.getElementById('adminPin').classList.add('shake');
+                setTimeout(() => {
+                    document.getElementById('adminPin').classList.remove('shake');
+                }, 500);
+            }
+        }
+
+        // Render Messages List
+        function renderMessages() {
+            const listContainer = document.getElementById('messagesList');
+            if (contactMessages.length === 0) {
+                listContainer.innerHTML = '<p style="text-align:center; padding:20px;">এখনো কোনো বার্তা আসেনি।</p>';
+                return;
+            }
+
+            let html = '';
+            contactMessages.forEach(msg => {
+                html += `
+                    <div class="message-item">
+                        <div class="msg-meta">
+                            <strong>${msg.name}</strong> <span>${msg.date}</span>
+                        </div>
+                        <div style="font-size:0.85rem; color:#666;">${msg.email}</div>
+                        <div class="msg-body" style="margin-top:5px;">${msg.message}</div>
+                    </div>
+                `;
+            });
+            listContainer.innerHTML = html;
+        }
+
+        // Close modal when clicking outside content
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal-overlay')) {
+                event.target.classList.remove('open');
+            }
         }
     </script>
 </body>
