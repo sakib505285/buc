@@ -389,6 +389,245 @@
             cursor: default;
         }
 
+        /* --- Match Best Player Section --- */
+        .mvp-section {
+            background: linear-gradient(135deg, #0a2342 0%, #0d2d52 50%, #1c4b82 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mvp-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,215,0,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .mvp-section::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,215,0,0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .mvp-section .section-title {
+            color: var(--accent-color);
+        }
+
+        .mvp-section .section-title::after {
+            background: linear-gradient(90deg, var(--accent-color), #ffaa00);
+        }
+
+        .mvp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .mvp-card {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .mvp-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent-gradient);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .mvp-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 215, 0, 0.4);
+        }
+
+        .mvp-card:hover::before {
+            opacity: 1;
+        }
+
+        .mvp-match-info {
+            padding: 18px 22px 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .mvp-match-date {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+        }
+
+        .mvp-match-teams {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .mvp-team-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.85);
+            text-align: center;
+            flex: 1;
+        }
+
+        .mvp-score-box {
+            background: var(--accent-gradient);
+            color: var(--primary-color);
+            padding: 6px 16px;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            min-width: 65px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .mvp-match-type {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 0.72rem;
+            background: rgba(255, 215, 0, 0.15);
+            color: var(--accent-color);
+            padding: 3px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.25);
+            letter-spacing: 0.5px;
+        }
+
+        .mvp-player-area {
+            padding: 22px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            position: relative;
+        }
+
+        .mvp-badge {
+            position: absolute;
+            top: -1px;
+            left: 22px;
+            background: var(--accent-gradient);
+            color: var(--primary-color);
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 4px 12px 6px;
+            border-radius: 0 0 8px 8px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .mvp-player-img {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--accent-color);
+            flex-shrink: 0;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+            position: relative;
+        }
+
+        .mvp-player-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .mvp-card:hover .mvp-player-img img {
+            transform: scale(1.15);
+        }
+
+        .mvp-player-details {
+            flex: 1;
+        }
+
+        .mvp-player-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 3px;
+        }
+
+        .mvp-player-pos {
+            font-size: 0.78rem;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .mvp-player-reason {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.65);
+            line-height: 1.5;
+        }
+
+        .mvp-stats-row {
+            display: flex;
+            gap: 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .mvp-stat-item {
+            flex: 1;
+            text-align: center;
+            padding: 14px 8px;
+            border-right: 1px solid rgba(255, 255, 255, 0.06);
+            transition: background 0.3s;
+        }
+
+        .mvp-stat-item:last-child {
+            border-right: none;
+        }
+
+        .mvp-stat-item:hover {
+            background: rgba(255, 215, 0, 0.06);
+        }
+
+        .mvp-stat-value {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .mvp-stat-label {
+            font-size: 0.68rem;
+            color: rgba(255, 255, 255, 0.45);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
         /* --- Gallery --- */
         .gallery-grid {
             display: grid;
@@ -665,6 +904,13 @@
             .contact-wrapper { grid-template-columns: 1fr; }
             .player-img-wrapper { height: 220px; }
             .about-grid { grid-template-columns: 1fr; }
+            .mvp-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 400px) {
+            .mvp-match-teams { flex-direction: column; gap: 6px; }
+            .mvp-player-area { flex-direction: column; text-align: center; }
+            .mvp-badge { left: 50%; transform: translateX(-50%); }
         }
     </style>
 </head>
@@ -681,6 +927,7 @@
                     <li><a href="#about" onclick="toggleMenu()">আমাদের সম্পর্কে</a></li>
                     <li><a href="#team" onclick="toggleMenu()">দল</a></li>
                     <li><a href="#matches" onclick="toggleMenu()">ম্যাচ</a></li>
+                    <li><a href="#mvp" onclick="toggleMenu()">সেরা খেলোয়াড়</a></li>
                     <li><a href="#tournaments" onclick="toggleMenu()">টুর্নামেন্ট</a></li>
                     <li><a href="#news" onclick="toggleMenu()">খবর</a></li>
                     <li><a href="#gallery" onclick="toggleMenu()">গ্যালারি</a></li>
@@ -1119,6 +1366,268 @@
         </div>
     </section>
 
+    <!-- Match Best Player (MVP) Section -->
+    <section id="mvp" class="mvp-section">
+        <h2 class="section-title reveal">ম্যাচ সেরা খেলোয়াড়</h2>
+        <p style="text-align:center; color:rgba(255,255,255,0.55); margin-top:-30px; margin-bottom:45px; font-size:0.95rem;" class="reveal delay-100">প্রতিটি ম্যাচে যিনি সেরা পারফরম্যান্স দেখিয়েছেন</p>
+        
+        <div class="mvp-grid">
+
+            <!-- MVP Card 1 -->
+            <div class="mvp-card reveal delay-100">
+                <div class="mvp-match-info">
+                    <div class="mvp-match-date">১০ সেপ্টেম্বর, ২০২৫</div>
+                    <div class="mvp-match-teams">
+                        <span class="mvp-team-name">ব্রাদার্স ইউনাইটেড</span>
+                        <span class="mvp-score-box">৩ - ১</span>
+                        <span class="mvp-team-name">পাঁচদোনা এফসি</span>
+                    </div>
+                    <span class="mvp-match-type">নরসিংদী সুপার লীগ</span>
+                </div>
+                <div class="mvp-player-area">
+                    <span class="mvp-badge">⭐ সেরা খেলোয়াড়</span>
+                    <div class="mvp-player-img">
+                        <img src="Sakib.jpeg" alt="সাকিব হাসান">
+                    </div>
+                    <div class="mvp-player-details">
+                        <div class="mvp-player-name">সাকিব হাসান</div>
+                        <div class="mvp-player-pos">ফরোয়ার্ড (অধিনায়ক) • জার্সি #১০</div>
+                        <p class="mvp-player-reason">২টি গোল করেছেন এবং ১টি অ্যাসিস্ট করেছেন। পুরো ম্যাচে দুর্দান্ত পেস এবং লিডারশিপ দেখিয়েছেন।</p>
+                    </div>
+                </div>
+                <div class="mvp-stats-row">
+                    <div class="mvp-stat-item">
+                        <span class="mvp-stat-value">২</span>
+                        <span class="mvp-stat-label">গোল</span>
+                    </div>
+                    <div class="mvp-stat-item">
+                        <span class="mvp-stat-value">১</span>
+                        <span class="mvp-stat-label">অ্যাসিস্ট</span>
+                    </div>
+                    <div class="mvp-stat-item">
+                        <span class="mvp-stat-value">৯০'</span>
+                        <span class="mvp-stat-label">মিনিট</span>
+                    </div>
+                    <div class="mvp-stat-item">
+                        <span class="mvp-stat-value">৯.২</span>
+                        <span class="mvp-stat-label">রেটিং</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MVP Card 2 -->
+            <div class="mvp-card reveal delay-200">
+                <div class="mvp-match-info">
+                    <div class="mvp-match-date">১৮ সেপ্টেম্বর, ২০২৫</div>
+                    <div class="mvp-match-teams">
+                        <span class="mvp-team-name">ব্রাদার্স ইউনাইটেড</span>
+                        <span class="mvp-score-box">২ - ০</span>
+                        <span class="mvp-team-name">নরসিংদী স্টারস</span>
+                    </div>
+                    <span class="mvp-match-type">স্বাধীনতা কাপ</span>
+                </div>
+                <div class="mvp-player-area">
+                    <span class="mvp-badge">⭐ সেরা খেলোয়াড়</span>
+                    <div class="mvp-player-img">
+                        <img src="faysal.jpeg" alt="ফয়সাল মিয়া">
+                    </div>
+                    <div class="mvp-player-details">
+                        <div class="mvp-player-name">ফয়সাল মিয়া</div>
+                        <div class="mvp-player-pos">মিডফিল্ডার • জার্সি #১১</div>
+                        <p class="mvp-player-reason">মিডফিল্ড সম্পূর্ণ নিয়ন্ত্রণ করেছেন। ৮৫% পাস অ্যাকুরেসি এবং ১টি দুর্দান্ত গোল।</p>
+                    </div>
+                </div>
+                <div class="mvp-stats-row">
+                    <div class="mvp-stat-item">
+                        <span class="mvp-stat-value">১</span>
+                        <span class="mvp-stat-label">গোল</span>
+                    </div>
+                    <div class="mvp-stat-item">
+                        <span class="mvp-stat-value">২</span>
+                        <span class="mvp-stat-label">অ্যাসিস্ট</span>
+                    </div>
+                    <div class="mvp-stat-item">
+                        <span class="mvp-stat-value">৯০'</span>
+                        <span class="mvp-stat-label">মিনিট</span>
+                    </div>
+                    <div class="mvp-stat-item">
+                        <span class="mvp-stat-value">৮.৯</span>
+                        <span class="mvp-stat-label">রেটিং</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MVP Card 3 -->
+            <div class="mvp-card reveal delay-300">
+                <div class="mvp-match-info">
+                    <div class="mvp-match-date">২৫ সেপ্টেম্বর, ২০২৫</div>
+                    <div class="mvp-match-teams">
+                        <span class="mvp-team-name">ব্রাদার্স ইউনাইটেড</span>
+                        <span class="mvp-score-box">১ - ১</span>
+                        <span class="mvp-team-name">সদরপুর বয়েজ</span>
+                    </div>
+                    <span class="mvp-match-type">প্রীতি ম্যাচ</span>
+                </div>
+                <div class="mvp-player-area">
+                    <span class="mvp-badge">⭐ সেরা খেলোয়াড়</span>
+                    <div class="mvp-player-img">
+                        <img src="Jaidul.jpeg" alt="জাইদুল ইসলাম">
+                    </div>
+                    <div class="mvp-player-details">
+                        <div class="mvp-player-name">জাইদুল ইসলাম</div>
+                        <div class="mvp-player-pos">গোলরক্ষক • জার্সি #০১</div>
+                        <p class="mvp-player-reason">৫টি দুর্দান্ত সেভ করেছেন। পেনাল্টি সেভ সহ পুরো ম্যাচে ডিফেন্সকে সংগঠিত রেখেছেন।</p>
+                    </div>
+                </div>
+                <div class="mvp-stats-row">
+                    <div class="mvp-stat-item">
+                        <span class="mvp-stat-value">৫</span>
+                        <span class="mvp-stat-label">সেভ</span>
+                    </div>
+                    <div class="mvp-stat-item">
+                        <span class="mvp-stat-value">১</span>
+                        <span class="mvp-stat-label">পেনাল্টি সেভ</span>
+                    </div>
+                    <div class="mvp-stat-item">
+                        <span class="mvp-stat-value">৯০'</span>
+                        <span class="mvp-stat-label">মিনিট</span>
+                    </div>
+                    <div class="mvp-stat-item">
+                        <span class="mvp-stat-value">৮.৭</span>
+                        <span class="mvp-stat-label">রেটিং</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MVP Card 4 -->
+            <div class="mvp-card reveal delay-100">
+                <div class="mvp-match-info">
+                    <div class="mvp-match-date">২ অক্টোবর, ২০২৫</div>
+                    <div class="mvp-match-teams">
+                        <span class="mvp-team-name">ব্রাদার্স ইউনাইটেড</span>
+                        <span class="mvp-score-box">৪ - ০</span>
+                        <span class="mvp-team-name">মাধবদী ইউনাইটেড</span>
+                    </div>
+                    <span class="mvp-match-type">নরসিংদী সুপার লীগ</span>
+                </div>
+                <div class="mvp-player-area">
+                    <span class="mvp-badge">⭐ সেরা খেলোয়াড়</span>
+                    <div class="mvp-player-img">
+                        <img src="Sahed.jpeg" alt="শাহেদ খান">
+                    </div>
+                    <div class="mvp-player-details">
+                        <div class="mvp-player-name">শাহেদ খান</div>
+                        <div class="mvp-player-pos">উইঙ্গার • জার্সি #১২</div>
+                        <p class="mvp-player-reason">হ্যাট্রিক করেছেন! ডান উইং থেকে ধ্বংসলীলা চালিয়েছেন, ৩ গোল ও ১ অ্যাসিস্ট।</p>
+                    </div>
+                </div>
+                <div class="mvp-stats-row">
+                    <div class="mvp-stat-item">
+                        <span class="mvp-stat-value">৩</span>
+                        <span class="mvp-stat-label">গোল</span>
+                    </div>
+                    <div class="mvp-stat-item">
+                        <span class="mvp-stat-value">১</span>
+                        <span class="mvp-stat-label">অ্যাসিস্ট</span>
+                    </div>
+                    <div class="mvp-stat-item">
+                        <span class="mvp-stat-value">৮৫'</span>
+                        <span class="mvp-stat-label">মিনিট</span>
+                    </div>
+                    <div class="mvp-stat-item">
+                        <span class="mvp-stat-value">৯.৬</span>
+                        <span class="mvp-stat-label">রেটিং</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MVP Card 5 -->
+            <div class="mvp-card reveal delay-200">
+                <div class="mvp-match-info">
+                    <div class="mvp-match-date">৯ অক্টোবর, ২০২৫</div>
+                    <div class="mvp-match-teams">
+                        <span class="mvp-team-name">ব্রাদার্স ইউনাইটেড</span>
+                        <span class="mvp-score-box">২ - ২</span>
+                        <span class="mvp-team-name">শিবপুর একাদশ</span>
+                    </div>
+                    <span class="mvp-match-type">স্বাধীনতা কাপ (কোয়ার্টার)</span>
+                </div>
+                <div class="mvp-player-area">
+                    <span class="mvp-badge">⭐ সেরা খেলোয়াড়</span>
+                    <div class="mvp-player-img">
+                        <img src="LIMON.jpg" alt="লিমন খান">
+                    </div>
+                    <div class="mvp-player-details">
+                        <div class="mvp-player-name">লিমন খান</div>
+                        <div class="mvp-player-pos">ডিফেন্ডার • জার্সি #০৪</div>
+                        <p class="mvp-player-reason">ডিফেন্সের দেয়াল হয়ে দাঁড়িয়েছেন। ৭টি ট্যাকল, ৪টি ক্লিয়ারেন্স এবং ১টি হেড গোল।</p>
+                    </div>
+                </div>
+                <div class="mvp-stats-row">
+                    <div class="mvp-stat-item">
+                        <span class="mvp-stat-value">১</span>
+                        <span class="mvp-stat-label">গোল</span>
+                    </div>
+                    <div class="mvp-stat-item">
+                        <span class="mvp-stat-value">৭</span>
+                        <span class="mvp-stat-label">ট্যাকল</span>
+                    </div>
+                    <div class="mvp-stat-item">
+                        <span class="mvp-stat-value">৯০'</span>
+                        <span class="mvp-stat-label">মিনিট</span>
+                    </div>
+                    <div class="mvp-stat-item">
+                        <span class="mvp-stat-value">৮.৫</span>
+                        <span class="mvp-stat-label">রেটিং</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MVP Card 6 -->
+            <div class="mvp-card reveal delay-300">
+                <div class="mvp-match-info">
+                    <div class="mvp-match-date">১ অক্টোবর, ২০২৫</div>
+                    <div class="mvp-match-teams">
+                        <span class="mvp-team-name">ব্রাদার্স ইউনাইটেড</span>
+                        <span class="mvp-score-box">৫ - ২</span>
+                        <span class="mvp-team-name">রায়পুরা স্পোর্টিং</span>
+                    </div>
+                    <span class="mvp-match-type">নরসিংদী সুপার লীগ</span>
+                </div>
+                <div class="mvp-player-area">
+                    <span class="mvp-badge">⭐ সেরা খেলোয়াড়</span>
+                    <div class="mvp-player-img">
+                        <img src="Riyad.jpeg" alt="রিয়াদ হাসান">
+                    </div>
+                    <div class="mvp-player-details">
+                        <div class="mvp-player-name">রিয়াদ হাসান</div>
+                        <div class="mvp-player-pos">স্ট্রাইকার • জার্সি #০৭</div>
+                        <p class="mvp-player-reason">২ গোল ও ২ অ্যাসিস্ট। টার্গেট ম্যান হিসেবে বল হোল্ড করে সতীর্থদের খেলায় নিয়েছেন।</p>
+                    </div>
+                </div>
+                <div class="mvp-stats-row">
+                    <div class="mvp-stat-item">
+                        <span class="mvp-stat-value">২</span>
+                        <span class="mvp-stat-label">গোল</span>
+                    </div>
+                    <div class="mvp-stat-item">
+                        <span class="mvp-stat-value">২</span>
+                        <span class="mvp-stat-label">অ্যাসিস্ট</span>
+                    </div>
+                    <div class="mvp-stat-item">
+                        <span class="mvp-stat-value">৯০'</span>
+                        <span class="mvp-stat-label">মিনিট</span>
+                    </div>
+                    <div class="mvp-stat-item">
+                        <span class="mvp-stat-value">৯.০</span>
+                        <span class="mvp-stat-label">রেটিং</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
     <!-- Tournaments & Stats -->
     <section id="tournaments" style="background-color: #fff;">
         <h2 class="section-title reveal">টুর্নামেন্ট ও সাফল্য</h2>
@@ -1145,15 +1654,15 @@
         <div class="stats-container reveal delay-100">
             <div class="stat-box">
                 <span class="stat-number" data-target="24">0</span>
-                <div class="stat-label">ম্যাচ খেলা হয়েছে</div>
+                <div class="stat-label">ম্যাচ খেলা হয়েছে</div>
             </div>
             <div class="stat-box">
                 <span class="stat-number" data-target="18">0</span>
-                <div class="stat-label">জয়</div>
+                <div class="stat-label">জয়</div>
             </div>
             <div class="stat-box">
                 <span class="stat-number" data-target="42">0</span>
-                <div class="stat-label">গোল করা হয়েছে</div>
+                <div class="stat-label">গোল করা হয়েছে</div>
             </div>
             <div class="stat-box">
                 <span class="stat-number" data-target="12">0</span>
@@ -1171,7 +1680,7 @@
                     <img src="G13.jpg" alt="News 1" style="height: 100%; width: 100%; object-fit: cover;">
                 </div>
                 <div class="player-info" style="text-align: left;">
-                    <h4 style="margin-bottom: 8px; color: var(--primary-color);">ডার্বিতে জয়</h4>
+                    <h4 style="margin-bottom: 8px; color: var(--primary-color);">ডার্বিতে জয়</h4>
                     <p style="font-size: 0.9rem; color: #666;">ব্রাদার্স ইউনাইটেড রোমাঞ্চকর ম্যাচে প্রতিপক্ষকে ২-০ গোলে পরাজিত করেছে।</p>
                 </div>
             </div>
@@ -1190,7 +1699,7 @@
                 </div>
                 <div class="player-info" style="text-align: left;">
                     <h4 style="margin-bottom: 8px; color: var(--primary-color);">একাডেমি চালু</h4>
-                    <p style="font-size: 0.9rem; color: #666;">নতুন যুব ফুটবল একাডেমির জন্য রেজিস্ট্রেশন শুরু হয়েছে।</p>
+                    <p style="font-size: 0.9rem; color: #666;">নতুন যুব ফুটবল একাডেমির জন্য রেজিস্ট্রেশন শুরু হয়েছে।</p>
                 </div>
             </div>
         </div>
@@ -1251,18 +1760,18 @@
                     <span>📞</span>
                     <p><strong>ফোন:</strong> +৮৮০ ১৯৮০৯৬৩৬৬৯</p>
                 </div>
-                <!-- Google Map Placeholder -->
                 <div style="background: #eee; width: 100%; height: 250px; margin-top: 30px; display: flex; align-items: center; justify-content: center; color: #666; border-radius: 10px; overflow: hidden;">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d911.8650736473919!2d90.64028853209761!3d23.908749502551533!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x375433d37eaf275d%3A0xa2ed1f64a15e1a46!2z4Kao4KeH4Ka54Ka-4Kaw4KeL4Ka54Ka-4Kaw4KeG4Ka24KeN4Kaf4Ka_4Kao4KeN4Kaw4KeG4Ka2IOCmquCnjeCmsOCmvuCmh-CmrOCmvuCmsOCmvyDgprjgp43gppXgp4HgprIg4KaW4KeH4Kay4Ka-4KawIOCmrOCmvuCmoA!5e0!3m2!1sen!2sbd!4v1781524360478!5m2!1sen!2sbd" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d911.8650736473919!2d90.64028853209761!3d23.908749502551533!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x375433d37eaf275d%3A0xa2ed1f64a15e1a46!2z4Kao4KeH4Ka54Ka-4Kaw4KeL4Ka54Ka-4Kaw4KeG4Ka24KeN4Kaf4Ka_4Kao4KeN4Kaw4KeG4Ka2IOCmquCnjeCmsOCmvuCmh-CmrOCmvuCmsOCmvyDgprjgp43gppXgp4HgprIg4KaW4KeH4Kay4Ka-4KawIOCmrOCmvuCmoA!5e0!3m2!1sen!2sbd!4v1781524360478!5m2!1sen!2sbd" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
-            <div class="contact-form">
-                <!-- Form Submit Handler Changed -->
-                <form id="contactForm" onsubmit="handleContactSubmit(event)">
-                    <input type="text" id="name" placeholder="আপনার নাম" required>
-                    <input type="email" id="email" placeholder="আপনার ইমেইল" required>
-                    <textarea rows="5" id="message" placeholder="আপনার বার্তা লিখুন" required></textarea>
-                    <button type="submit" class="btn">বার্তা পাঠান</button>
+            <div>
+                <h3 style="margin-bottom: 20px; color: var(--primary-color);">মেসেজ পাঠান</h3>
+                <form class="contact-form" id="contactForm" onsubmit="handleFormSubmit(event)">
+                    <input type="text" placeholder="আপনার নাম" required>
+                    <input type="email" placeholder="ইমেইল ঠিকানা" required>
+                    <input type="text" placeholder="বিষয়">
+                    <textarea rows="5" placeholder="আপনার মেসেজ লিখুন..." required></textarea>
+                    <button type="submit" class="btn">পাঠান</button>
                 </form>
             </div>
         </div>
@@ -1272,212 +1781,196 @@
     <footer>
         <div class="footer-links">
             <a href="#home">হোম</a>
-            <a href="#about">আমাদের সম্পর্কে</a>
+            <a href="#about">সম্পর্কে</a>
+            <a href="#team">দল</a>
+            <a href="#matches">ম্যাচ</a>
+            <a href="#mvp">সেরা খেলোয়াড়</a>
+            <a href="#gallery">গ্যালারি</a>
             <a href="#contact">যোগাযোগ</a>
         </div>
-        <p>&copy; ২০২৫ ব্রাদার্স ইউনাইটেড ক্লাব. সর্বস্বত্ব সংরক্ষিত.</p>
+        <p style="opacity: 0.6;">&copy; ২০২৫ ব্রাদার্স ইউনাইটেড ক্লাব। সর্বস্বত্ব সংরক্ষিত।</p>
     </footer>
 
-    <!-- Admin Trigger Button (Hidden Feature) -->
-    <div class="admin-trigger" onclick="openAdminLogin()">
-        🔒 Admin
-    </div>
+    <!-- Admin Trigger -->
+    <div class="admin-trigger" onclick="openAdminLogin()" title="Admin">🔐</div>
 
     <!-- Modals -->
-
-    <!-- 1. Success Modal -->
-    <div id="successModal" class="modal-overlay">
+    <div class="modal-overlay" id="successModal">
         <div class="modal-content">
             <div class="success-icon">✓</div>
-            <h3 class="modal-title">সফল হয়েছে!</h3>
-            <p class="modal-text">আপনার বার্তা আমাদের কাছে সফলভাবে পৌঁছেছে। আমরা শীঘ্রই যোগাযোগ করব।</p>
+            <h3 class="modal-title">মেসেজ পাঠানো হয়েছে!</h3>
+            <p class="modal-text">আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।</p>
             <button class="modal-btn" onclick="closeModal('successModal')">ঠিক আছে</button>
         </div>
     </div>
 
-    <!-- 2. Admin Login Modal -->
-    <div id="loginModal" class="modal-overlay">
+    <div class="modal-overlay" id="adminLoginModal">
         <div class="modal-content">
-            <h3 class="modal-title">অ্যাডমিন ভেরিফিকেশন</h3>
-            <p class="modal-text">অনুগ্রহ করে পিন নম্বর দিন:</p>
-            <input type="password" id="adminPin" class="admin-input" placeholder="****">
-            <div style="display:flex; gap:10px; justify-content:center;">
-                <button class="modal-btn" style="background:#ccc; color:#333;" onclick="closeModal('loginModal')">বাতিল</button>
-                <button class="modal-btn" onclick="verifyAdmin()">ভেরিফাই</button>
-            </div>
-            <p id="loginError" style="color:red; margin-top:10px; font-size:0.9rem; display:none;">ভুল পিন! আবার চেষ্টা করুন।</p>
+            <h3 class="modal-title">🔐 অ্যাডমিন লগইন</h3>
+            <input type="password" class="admin-input" id="adminPass" placeholder="পাসওয়ার্ড" onkeypress="if(event.key==='Enter')checkAdmin()">
+            <br>
+            <button class="modal-btn" onclick="checkAdmin()">প্রবেশ</button>
+            <br><br>
+            <a href="#" onclick="closeModal('adminLoginModal')" style="color: #888; font-size: 0.85rem;">বাতিল</a>
         </div>
     </div>
 
-    <!-- 3. Messages View Modal -->
-    <div id="messagesModal" class="modal-overlay">
-        <div class="modal-content message-container">
-            <h3 class="modal-title" style="text-align:center;">প্রাপ্ত বার্তাসমূহ</h3>
-            <div id="messagesList">
-                <!-- Messages will be loaded here by JS -->
-                <p style="text-align:center; color:#888;">কোনো বার্তা নেই।</p>
+    <div class="modal-overlay" id="adminPanelModal">
+        <div class="modal-content message-container" style="max-width: 650px;">
+            <h3 class="modal-title">📥 প্রাপ্ত মেসেজ</h3>
+            <div id="messageList">
+                <p style="color: #999; text-align: center; padding: 20px;">কোনো মেসেজ নেই।</p>
             </div>
-            <div style="text-align:center; margin-top:20px;">
-                <button class="modal-btn" onclick="closeModal('messagesModal')">বন্ধ করুন</button>
-            </div>
+            <br>
+            <button class="modal-btn" onclick="closeModal('adminPanelModal')">বন্ধ করুন</button>
         </div>
     </div>
 
-    <!-- JavaScript -->
     <script>
-        // 1. Mobile Menu Toggle
+        // --- Mobile Menu Toggle ---
         function toggleMenu() {
-            const nav = document.getElementById('navbar');
-            nav.classList.toggle('nav-active');
+            document.getElementById('navbar').classList.toggle('nav-active');
         }
 
-        // 2. Scroll Reveal Animation
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealOnScroll = () => {
-            const windowHeight = window.innerHeight;
-            const elementVisible = 150; 
-            revealElements.forEach((reveal) => {
-                const elementTop = reveal.getBoundingClientRect().top;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveal.classList.add('active');
+        // --- Scroll Reveal Animation ---
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                const revealPoint = 120;
+                if (elementTop < windowHeight - revealPoint) {
+                    el.classList.add('active');
                 }
             });
-        };
+        }
         window.addEventListener('scroll', revealOnScroll);
-        revealOnScroll();
+        window.addEventListener('load', revealOnScroll);
 
-        // 3. Number Counter Animation
-        const statsSection = document.querySelector('#stats');
-        const statNumbers = document.querySelectorAll('.stat-number');
-        let started = false; 
-
-        function startCount(el) {
-            const target = +el.getAttribute('data-target');
-            const speed = 200; 
-            const increment = target / speed;
-            const updateCount = () => {
-                const count = +el.innerText;
-                if (count < target) {
-                    el.innerText = Math.ceil(count + increment);
-                    setTimeout(updateCount, 20);
-                } else {
-                    el.innerText = target;
-                }
-            };
-            updateCount();
+        // --- Counter Animation ---
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const duration = 2000;
+                const step = target / (duration / 16);
+                let current = 0;
+                const updateCounter = () => {
+                    current += step;
+                    if (current < target) {
+                        counter.innerText = Math.ceil(current);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                updateCounter();
+            });
         }
 
+        // Trigger counter when stats section is visible
+        let counterAnimated = false;
         const statsObserver = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting && !started) {
-                statNumbers.forEach((num) => startCount(num));
-                started = true;
-            }
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !counterAnimated) {
+                    counterAnimated = true;
+                    animateCounters();
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        const statsSection = document.getElementById('stats');
+        if (statsSection) statsObserver.observe(statsSection);
+
+        // --- Contact Form ---
+        let messages = JSON.parse(localStorage.getItem('clubMessages') || '[]');
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+            const inputs = form.querySelectorAll('input, textarea');
+            const msg = {
+                name: inputs[0].value,
+                email: inputs[1].value,
+                subject: inputs[2].value,
+                body: inputs[3].value,
+                time: new Date().toLocaleString('bn-BD')
+            };
+            messages.push(msg);
+            localStorage.setItem('clubMessages', JSON.stringify(messages));
+            form.reset();
+            openModal('successModal');
+        }
+
+        // --- Modal Functions ---
+        function openModal(id) {
+            document.getElementById(id).classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal on overlay click
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('open');
+                    document.body.style.overflow = '';
+                }
+            });
         });
 
-        if(statsSection) {
-            statsObserver.observe(statsSection);
-        }
-
-        // 4. Navbar Effect
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('main-header');
-            if (window.scrollY > 50) {
-                header.style.padding = '0.5rem 5%';
-                header.style.background = 'rgba(10, 35, 66, 0.98)';
-            } else {
-                header.style.padding = '1rem 5%';
-                header.style.background = 'var(--primary-gradient)';
-            }
-        });
-
-        // ---------------------------------------------------------
-        // NEW FEATURES: Contact Form Storage & Admin Verification
-        // ---------------------------------------------------------
-
-        // Array to store messages (in memory for this demo)
-        let contactMessages = [];
-
-        // Function to handle Contact Form Submit
-        function handleContactSubmit(e) {
-            e.preventDefault(); // Stop page reload
-
-            // Get values
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-            const date = new Date().toLocaleString('bn-BD');
-
-            // Save to array
-            contactMessages.unshift({ name, email, message, date });
-
-            // Clear form
-            document.getElementById('contactForm').reset();
-
-            // Show Beautiful Success Modal
-            document.getElementById('successModal').classList.add('open');
-        }
-
-        // Modal Controls
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('open');
-            if(modalId === 'loginModal') {
-                document.getElementById('adminPin').value = '';
-                document.getElementById('loginError').style.display = 'none';
-            }
-        }
-
-        // Open Admin Login
+        // --- Admin Panel ---
         function openAdminLogin() {
-            document.getElementById('loginModal').classList.add('open');
+            openModal('adminLoginModal');
+            setTimeout(() => document.getElementById('adminPass').focus(), 300);
         }
 
-        // Verify Pin (5678)
-        function verifyAdmin() {
-            const pinInput = document.getElementById('adminPin').value;
-            if (pinInput === '5678') {
-                // Success: Close login, Open messages
-                closeModal('loginModal');
+        function checkAdmin() {
+            const pass = document.getElementById('adminPass').value;
+            if (pass === 'brothers2025') {
+                closeModal('adminLoginModal');
+                document.getElementById('adminPass').value = '';
                 renderMessages();
-                document.getElementById('messagesModal').classList.add('open');
+                openModal('adminPanelModal');
             } else {
-                // Error
-                document.getElementById('loginError').style.display = 'block';
-                document.getElementById('adminPin').classList.add('shake');
+                document.getElementById('adminPass').style.borderColor = '#e74c3c';
                 setTimeout(() => {
-                    document.getElementById('adminPin').classList.remove('shake');
-                }, 500);
+                    document.getElementById('adminPass').style.borderColor = '#ddd';
+                }, 1500);
             }
         }
 
-        // Render Messages List
         function renderMessages() {
-            const listContainer = document.getElementById('messagesList');
-            if (contactMessages.length === 0) {
-                listContainer.innerHTML = '<p style="text-align:center; padding:20px;">এখনো কোনো বার্তা আসেনি।</p>';
+            const list = document.getElementById('messageList');
+            if (messages.length === 0) {
+                list.innerHTML = '<p style="color: #999; text-align: center; padding: 20px;">কোনো মেসেজ নেই।</p>';
                 return;
             }
-
-            let html = '';
-            contactMessages.forEach(msg => {
-                html += `
-                    <div class="message-item">
-                        <div class="msg-meta">
-                            <strong>${msg.name}</strong> <span>${msg.date}</span>
-                        </div>
-                        <div style="font-size:0.85rem; color:#666;">${msg.email}</div>
-                        <div class="msg-body" style="margin-top:5px;">${msg.message}</div>
+            list.innerHTML = messages.map((m, i) => `
+                <div class="message-item">
+                    <div class="msg-meta">
+                        <span><strong>${m.name}</strong> (${m.email})</span>
+                        <span>${m.time}</span>
                     </div>
-                `;
-            });
-            listContainer.innerHTML = html;
+                    ${m.subject ? `<div style="font-weight:600; margin-bottom:4px; font-size:0.9rem;">${m.subject}</div>` : ''}
+                    <div class="msg-body">${m.body}</div>
+                </div>
+            `).reverse().join('');
         }
 
-        // Close modal when clicking outside content
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal-overlay')) {
-                event.target.classList.remove('open');
+        // --- Header Scroll Effect ---
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 100) {
+                header.style.padding = '0.6rem 5%';
+            } else {
+                header.style.padding = '1rem 5%';
             }
-        }
+        });
     </script>
 </body>
 </html>
